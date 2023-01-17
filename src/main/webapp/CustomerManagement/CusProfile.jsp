@@ -338,7 +338,8 @@ if (authin != null) {
 											class="overflow-hidden position-relative border-radius-xl"
 											style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/card-visa.jpg');">
 											<span class="mask bg-gradient-dark"></span>
-											<div class="card-body position-relative z-index-1 p-3" id="cardGenServlet">
+											<div class="card-body position-relative z-index-1 p-3"
+												id="cardGenServlet">
 												<div class="row mt-4">
 													<div class="col-8">
 														<img class="w-30" src="../assets/img/logos/chip.png"
@@ -387,9 +388,9 @@ if (authin != null) {
 									}
 									}
 									%>
-									
+
 									<%
-									if (card.isEmpty()) {
+									if (card==null) {
 									%>
 									<div class="card bg-transparent shadow-xl">
 										<div
@@ -699,13 +700,14 @@ if (authin != null) {
 																					<div class="col-4">
 																						<label class="mb-0" for="name">Name</label> <input
 																							id="name" class="form-control card-holder"
-																							maxlength="20" type="text" required/>
+																							maxlength="20" type="text" required />
 																					</div>
 																					<div class="col-8">
 																						<label class="mb-0" for="cardnumber">Card
 																							Number</label><span id="generatecard">generate
 																							random</span> <input class="form-control card-number"
-																							id="cardnumber" type="text" inputmode="numeric" required/>
+																							id="cardnumber" type="text" inputmode="numeric"
+																							required />
 																						<svg id="ccicon" class="ccicon" width="750"
 																							height="471" viewBox="0 0 750 471" version="1.1"
 																							xmlns="http://www.w3.org/2000/svg"
@@ -719,7 +721,7 @@ if (authin != null) {
 																							(mm/yy)</label> <input
 																							class="form-control card-expiration"
 																							id="expirationdate" type="text"
-																							inputmode="numeric" required/>
+																							inputmode="numeric" required />
 																					</div>
 																					<div class="col-6">
 																						<label for="securitycode" class="mb-0">Security
@@ -786,8 +788,14 @@ if (authin != null) {
 															class="fas fa-trash text-danger cursor-pointer"
 															data-bs-toggle="tooltip modal" data-bs-placement="top"
 															title="Delete Card"></i>
-														</span> <span data-bs-toggle="modal" data-id="<%=c.getId()%>"
-															data-bs-target="#cardEdit" class="ms-auto"> <i
+														</span>
+
+														<button class="d-none" id="updateCardModelLaunch"
+															data-bs-target="#editcards" data-bs-toggle="modal"
+															type="button">click</button>
+
+														<span data-id="<%=c.getId()%>" id="editCard"
+															class="ms-auto"> <i
 															class="fas fa-pencil-alt text-dark cursor-pointer"
 															data-bs-toggle="tooltip modal" data-bs-placement="top"
 															title="Edit Card"></i>
@@ -816,10 +824,7 @@ if (authin != null) {
 														<div class="modal-body p-0">
 															<div class="card card-plain">
 																<div class="card-body">
-																	<!-- <div class="payment-title">
-													              <h3>Add Card</h3>
-													              </div>-->
-																	<form>
+																	<form id="updateTheCard" action="javascript:0">
 																		<div class="Cardcontainer preload mx-auto">
 																			<div class="creditcard">
 																				<div class="front">
@@ -994,14 +999,15 @@ if (authin != null) {
 																		<div class="row mt-4">
 																			<div class="col-4">
 																				<label class="mb-0" for="name">Name</label> <input
-																					id="name" class="form-control" maxlength="20"
-																					type="text" />
+																					id="name" class="form-control editcname"
+																					maxlength="20" value="" type="text" required />
 																			</div>
 																			<div class="col-8">
 																				<label class="mb-0" for="cardnumber">Card
 																					Number</label><span id="generatecard">generate
-																					random</span> <input class="form-control" id="cardnumber"
-																					type="text" pattern="[0-9]*" inputmode="numeric" />
+																					random</span> <input class="form-control editcnumber"
+																					id="cardnumber" value="" type="text"
+																					inputmode="numeric" required />
 																				<svg id="ccicon" class="ccicon" width="750"
 																					height="471" viewBox="0 0 750 471" version="1.1"
 																					xmlns="http://www.w3.org/2000/svg"
@@ -1011,28 +1017,28 @@ if (authin != null) {
 																		<div class="row">
 																			<div class="col-6">
 																				<label for="expirationdate" class="text-center mb-0">Expiration
-																					(mm/yy)</label> <input class="form-control"
-																					id="expirationdate" type="text" pattern="[0-9]*"
+																					(mm/yy)</label> <input class="form-control editcexpire"
+																					value="" id="expirationdate" type="text" required
 																					inputmode="numeric" />
 																			</div>
 																			<div class="col-6">
 																				<label for="securitycode" class="mb-0">Security
-																					Code</label> <input class="form-control" id="securitycode"
-																					type="text" maxlength="3" pattern="[0-9]*"
-																					inputmode="numeric" />
+																					Code</label> <input class="form-control editccode"
+																					id="securitycode" value="" type="text"
+																					maxlength="3" required inputmode="numeric" />
 																			</div>
 																		</div>
 																		<div class="row">
-																			<input type="hidden" value="" id="forthecardname" />
+																			<input type="hidden" value="" class="card-name2" id="forthecardname" />
 																		</div>
 																		<div class="row text-center">
 																			<div class="col-6">
-																				<button type="button"
+																				<button type="button" id="updateCardModelClose"
 																					class="btn btn-outline-primary mb-0 btn-lg w-100 p-2 mt-4 mb-0"
 																					data-bs-dismiss="modal">Cancel</button>
 																			</div>
 																			<div class="col-6">
-																				<button type="button"
+																				<button type="submit" id="editCardDetails"
 																					class="btn bg-gradient-primary btn-lg w-100 p-2 mt-4 mb-md-0">
 																					Edit</button>
 																			</div>
@@ -2532,8 +2538,122 @@ if (authin != null) {
 	    	
 		    })
 		    
-		    $(document).on('click','#editcard',function(e){
+		    $(document).on('click','#editCard',function(e){
+		    	//alert($(this).attr("data-id"));
+		    	$.ajax({
+	  		            type: 'POST',
+	  		            url: '../CusProfileServlet',
+	  		            data : "updateId=" + $(this).attr("data-id") + "&email=" + $('#authmail').val(),
+	  		            success: function(response) {
+	  		                var oob = JSON.parse(response);
+	  		                if (oob.status == "done") {
+	  		                	$(".editccode").val(oob.csv);
+	  		                	$(".editcexpire").val(oob.cexpire);
+	  		                	$(".editcnumber").val(oob.cnum);
+	  		                	$(".editcname").val(oob.cname);
+	  		                	
+	  		                	$("#updateCardModelLaunch").click();
+	  		                	
+	  		                  
+	  		                }
+	  		                else  {
+	  		                   
+	  		                    const Toast = Swal.mixin({
+	  		                        toast: true,
+	  		                        position: 'top-end',
+	  		                        showConfirmButton: false,
+	  		                        timer: 2000,
+	  		                        timerProgressBar: true,
+	  		                        didOpen: (toast) => {
+	  		                            toast.addEventListener('mouseenter', Swal.stopTimer)
+	  		                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+	  		                        }
+	  		                    })
+	  	
+	  		                    Toast.fire({
+	  		                        icon: 'error',
+	  		                        title: 'Update Failed'
+	  		                    })
+	  		                }
+	  		              
+	  		                
+	  		            },
+	  		            error: function() {
+	  		                alert("error");
+	  		            }
+	  	
+	  		        })
 		    	
+		    })
+		    //for the card updateProcess
+		    $(document).on('click','#editCardDetails',function(e){
+		    	var $myForm = $('#updateTheCard');
+		 		if (!$myForm[0].checkValidity()) {
+		 		    $myForm.find(':submit').click();
+		 		}else{
+		 			var formData = {
+			        		card_name: $(".card-name2").val(),	
+			        		card_csv: $(".editccode").val(),	
+			        		card_expiration: $(".editcexpire").val(),	
+			        		card_number: $(".editcnumber").val(),		
+			        		card_holder: $(".editcname").val(),
+			        		email:$("#authmail").val(),
+			        		updateId:$("#editCard").attr("data-id"),
+				        };
+		 			$.ajax({
+	  		            type: 'POST',
+	  		            url: '../CusProfileServlet',
+	  		            data : formData,
+	  		            success: function(response) {
+	  		                var oob = JSON.parse(response);
+	  		                if (oob.status == "noexist") {
+	  		                	$("#updateCardModelClose").click();
+	  		                	 const Toast = Swal.mixin({
+		  		                        toast: true,
+		  		                        position: 'top-end',
+		  		                        showConfirmButton: false,
+		  		                        timer: 2000,
+		  		                        timerProgressBar: true,
+		  		                        didOpen: (toast) => {
+		  		                            toast.addEventListener('mouseenter', Swal.stopTimer)
+		  		                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+		  		                        }
+		  		                    })
+		  	
+		  		                    Toast.fire({
+		  		                        icon: 'success',
+		  		                        title: 'Updated Succesfully'
+		  		                    })
+	  		                  
+	  		                }
+	  		                else if (oob.status == "exist")  {
+	  		                   
+	  		                    const Toast = Swal.mixin({
+	  		                        toast: true,
+	  		                        position: 'top-end',
+	  		                        showConfirmButton: false,
+	  		                        timer: 2000,
+	  		                        timerProgressBar: true,
+	  		                        didOpen: (toast) => {
+	  		                            toast.addEventListener('mouseenter', Swal.stopTimer)
+	  		                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+	  		                        }
+	  		                    })
+	  	
+	  		                    Toast.fire({
+	  		                        icon: 'error',
+	  		                        title: 'Card Exists'
+	  		                    })
+	  		                }
+	  		              
+	  		                
+	  		            },
+	  		            error: function() {
+	  		                alert("error");
+	  		            }
+	  	
+	  		        })
+		 		}
 		    })
 		})
 		</script>

@@ -142,7 +142,7 @@ public class CusProfileDao {
 	//ends here
 	
 	//update the card info
-	public int updateCard(String name, String email, String cnum, int ctype, String cvc, String expire,String role) {
+	public int updateCard(String name, String email, String cnum, String ctype, String cvc, String expire,int id) {
 		int result = 0;
 		try {
 			query = "UPDATE paycard\r\n"
@@ -150,13 +150,14 @@ public class CusProfileDao {
 					+ "WHERE id = ?;";
 			pst = this.con.prepareStatement(query);
 			
-			pst.setInt(1, ctype);
+			pst.setString(1, ctype);
 			pst.setString(2, name);
 			pst.setString(3, cnum);
 			pst.setString(4, cvc);
 			pst.setString(5, expire);
 			pst.setTimestamp(6, date);
-	
+			pst.setInt(7, id);
+			
 			result = pst.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -214,7 +215,33 @@ public class CusProfileDao {
 
 	}
 	//ends here
-	
-	//taking the sum of the 
+
+	//checks all credentials wanted for the updateProces
+	public int checkCardByAll(String email, String cnum, String cname, String cholder, String csv) {
+		int id = 0;
+		try {
+			query = "SELECT id from paycard where email=? and cnum=? and ctype=? and name=? and cvc=?";
+
+			pst = this.con.prepareStatement(query);
+
+			pst.setString(1, email);
+			pst.setString(2, cnum);
+			pst.setString(3, cname);
+			pst.setString(4, cholder);
+			pst.setString(5, csv);
+			
+
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				id = rs.getInt("id");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return id;
+		
+	}
+	//ends here
+ 
 	
 }

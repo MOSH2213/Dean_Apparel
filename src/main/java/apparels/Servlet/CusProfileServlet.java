@@ -41,6 +41,7 @@ public class CusProfileServlet extends HttpServlet {
 
 			String deleteId = request.getParameter("deleteid");
 			String viewId = request.getParameter("viewid");
+			String updateId = request.getParameter("updateId");
 
 			CusProfileDao cpDao = new CusProfileDao(DbCon.getConnection());
 
@@ -55,7 +56,20 @@ public class CusProfileServlet extends HttpServlet {
 					obj.put("status", "nodelete");
 					out.print(obj);
 				}
-			} else if (email != null && cnum != null) {
+			}else if (email != null && updateId != null && cnum!=null && cname!=null) {
+				
+				result = cpDao.checkCardByAll(email, cnum,cname,cholder,csv);
+
+				if (result >=1) {
+					obj.put("status", "exist");
+					out.print(obj);
+				} else {
+					cpDao.updateCard(cholder, email, cnum, cname, csv, expire ,Integer.parseInt(updateId));
+					obj.put("status", "noexist");
+					out.print(obj);
+				}
+				
+			}else if (email != null && cnum != null) {
 				result = cpDao.checkCardinfo(email, cnum);
 
 				if (result > 1) {
@@ -114,6 +128,17 @@ public class CusProfileServlet extends HttpServlet {
 						+ "												</div>";
 
 				obj.put("value", htmlString);
+				obj.put("status", "done");
+				out.print(obj);
+				
+			}else if (email != null && updateId != null) {
+				Card card = new Card();
+				card = cpDao.getCardById(updateId);
+				
+				obj.put("cnum", card.getCnum());
+				obj.put("cname", card.getCname());
+				obj.put("csv", card.getCvc());
+				obj.put("cexpire", card.getCexpire());
 				obj.put("status", "done");
 				out.print(obj);
 			}
