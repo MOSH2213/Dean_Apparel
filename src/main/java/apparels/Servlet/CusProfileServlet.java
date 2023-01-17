@@ -56,7 +56,7 @@ public class CusProfileServlet extends HttpServlet {
 					obj.put("status", "nodelete");
 					out.print(obj);
 				}
-			}else if (email != null && updateId != null && cnum!=null && cname!=null) {
+			}else if (email != null && updateId != null && cholder!=null && csv!=null) {
 				
 				result = cpDao.checkCardByAll(email, cnum,cname,cholder,csv);
 
@@ -64,7 +64,7 @@ public class CusProfileServlet extends HttpServlet {
 					obj.put("status", "exist");
 					out.print(obj);
 				} else {
-					cpDao.updateCard(cholder, email, cnum, cname, csv, expire ,Integer.parseInt(updateId));
+					cpDao.updateCard(cholder,csv,expire ,Integer.parseInt(updateId));
 					obj.put("status", "noexist");
 					out.print(obj);
 				}

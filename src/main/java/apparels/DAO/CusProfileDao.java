@@ -142,21 +142,19 @@ public class CusProfileDao {
 	//ends here
 	
 	//update the card info
-	public int updateCard(String name, String email, String cnum, String ctype, String cvc, String expire,int id) {
+	public int updateCard(String name, String cvc, String expire,int id) {
 		int result = 0;
 		try {
 			query = "UPDATE paycard\r\n"
-					+ "SET ctype=? and name=? and cnum=? and cvc=? and expire=? and modify=?\r\n"
+					+ "SET  name=?, cvc=?, expire=?, modify=?\r\n"
 					+ "WHERE id = ?;";
 			pst = this.con.prepareStatement(query);
 			
-			pst.setString(1, ctype);
-			pst.setString(2, name);
-			pst.setString(3, cnum);
-			pst.setString(4, cvc);
-			pst.setString(5, expire);
-			pst.setTimestamp(6, date);
-			pst.setInt(7, id);
+			pst.setString(1, name);
+			pst.setString(2, cvc);
+			pst.setString(3, expire);
+			pst.setTimestamp(4, date);
+			pst.setInt(5, id);
 			
 			result = pst.executeUpdate();
 		} catch (Exception e) {
