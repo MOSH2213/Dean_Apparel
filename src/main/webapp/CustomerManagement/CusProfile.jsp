@@ -16,7 +16,7 @@ CusProfileDao cpd = new CusProfileDao(DbCon.getConnection());
 List<Card> card = null;
 List<Card> payments = null;
 NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
-double totalpaid=0;
+double totalpaid = 0;
 
 if (authin != null) {
 	request.setAttribute("authin", authin);
@@ -28,6 +28,7 @@ if (authin != null) {
 	request.setAttribute("wishquantity", wishquantity);
 
 	card = cpd.getCardinfo(authin.getEmail(), "customer");
+
 	payments = cpd.getpaymentinfo(authin.getEmail());
 } else {
 	response.sendRedirect("Cuslogin.jsp");
@@ -251,12 +252,11 @@ if (authin != null) {
 			</div>
 		</nav>
 		<style>
-		   .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-		        color: white;
-		        background-color: black;
-		        
-		    }
-		</style>
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+	color: white;
+	background-color: black;
+}
+</style>
 		<!-- End Navbar -->
 		<div class="card shadow-lg mx-4 mt-3 card-profile-bottom">
 			<div class="card-body p-3">
@@ -309,17 +309,19 @@ if (authin != null) {
 				</div>
 			</div>
 		</div>
-		
-		<input	type="hidden" id="authmail" value="<%=authin != null ? authin.getEmail() : ""%>" /> 
-		
+
+		<input type="hidden" id="authmail"
+			value="<%=authin != null ? authin.getEmail() : ""%>" />
+
 		<div class="container-fluid py-4 px-2" id="cardconts"
 			style="overflow: hidden;">
 			<div class="tab-content">
 				<div class="tab-pane active" id="cardPay">
 					<div class="row">
 						<div class="col-lg-8">
-							<div class="row">
+							<div class="row" id="jqueryrefresh">
 								<div class="col-xl-6 mb-xl-0 mb-4">
+									<!-- for the card null -->
 									<%
 									if (card != null) {
 										int k = 1;
@@ -385,6 +387,61 @@ if (authin != null) {
 									}
 									%>
 
+									<%
+									if (card.isEmpty()) {
+									%>
+									<div class="card bg-transparent shadow-xl">
+										<div
+											class="overflow-hidden position-relative border-radius-xl"
+											style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/card-visa.jpg');">
+											<span class="mask bg-gradient-dark"></span>
+											<div class="card-body position-relative z-index-1 p-3 ">
+												<div class="row mt-4">
+													<div class="col-8">
+														<img class="w-30" src="../assets/img/logos/chip.png"
+															alt="" />
+													</div>
+													<div
+														class="col-4 d-flex justify-content-center align-items-center">
+														<i class="fas fa-wifi text-white p-2 fs-5"
+															style="transform: rotate(90deg);"></i>
+													</div>
+												</div>
+
+
+												<div class="row">
+													<div class="col-12 d-flex justify-content-center">
+														<h5 class="text-white mt-1 mb-2 pb-0 h3 fw-bold">
+															****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;1111
+														</h5>
+													</div>
+												</div>
+
+												<div class="d-flex">
+													<div class="d-flex align-items-center">
+														<div class="me-4">
+															<p class="text-white text-sm opacity-8 mb-0">Card
+																Holder</p>
+															<h6 class="text-white mb-0">John Doe</h6>
+														</div>
+														<div>
+															<p class="text-white text-sm opacity-8 mb-0">Expires
+															</p>
+															<h6 class="text-white mb-0">00/00</h6>
+														</div>
+													</div>
+													<div
+														class="ms-auto w-30 d-flex align-items-end justify-content-end">
+														<img class="w-60 mt-0" src="../assets/img/Cards/visa.png"
+															alt="logo" />
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<%
+									}
+									%>
 								</div>
 								<%
 								int totals = 0;
@@ -416,11 +473,11 @@ if (authin != null) {
 											</div>
 										</div>
 										<%
-											if (payments != null) {
-												for (Card p : payments) {
-													totalpaid=totalpaid+p.getPayments();
-												}
+										if (payments != null) {
+											for (Card p : payments) {
+												totalpaid = totalpaid + p.getPayments();
 											}
+										}
 										%>
 										<div class="col-md-6 mt-md-0 mt-4">
 											<div class="card">
@@ -434,7 +491,9 @@ if (authin != null) {
 													<h6 class="text-center mb-0">Payments</h6>
 													<span class="text-xs">Total Payment</span>
 													<hr class="horizontal dark my-3" />
-													<h5 class="mb-0 h6">Rs <%=nf.format(totalpaid) %></h5>
+													<h5 class="mb-0 h6">
+														Rs
+														<%=nf.format(totalpaid)%></h5>
 												</div>
 											</div>
 										</div>
@@ -463,9 +522,6 @@ if (authin != null) {
 																<div class="modal-body p-0">
 																	<div class="card card-plain">
 																		<div class="card-body">
-																			<!-- <div class="payment-title">
-													              <h3>Add Card</h3>
-													              </div>-->
 																			<form id="myFormAddcard" action="javascript:0">
 																				<div class="Cardcontainer preload mx-auto">
 																					<div class="creditcard">
@@ -640,18 +696,15 @@ if (authin != null) {
 																				</div>
 																				<div class="row mt-4">
 																					<div class="col-4">
-																						<label class="mb-0" for="name">Name</label> 
-																						<input
-																							id="name" class="form-control card-holder" maxlength="20"
-																							type="text" />
+																						<label class="mb-0" for="name">Name</label> <input
+																							id="name" class="form-control card-holder"
+																							maxlength="20" type="text" />
 																					</div>
 																					<div class="col-8">
 																						<label class="mb-0" for="cardnumber">Card
 																							Number</label><span id="generatecard">generate
-																							random</span> 
-																						<input class="form-control card-number"
-																							id="cardnumber" type="text" 
-																							inputmode="numeric" />
+																							random</span> <input class="form-control card-number"
+																							id="cardnumber" type="text" inputmode="numeric" />
 																						<svg id="ccicon" class="ccicon" width="750"
 																							height="471" viewBox="0 0 750 471" version="1.1"
 																							xmlns="http://www.w3.org/2000/svg"
@@ -662,21 +715,21 @@ if (authin != null) {
 																					<div class="col-6">
 																						<label for="expirationdate"
 																							class="text-center mb-0">Expiration
-																							(mm/yy)</label> 
-																						<input class="form-control card-expiration"
-																							id="expirationdate" type="text" 
+																							(mm/yy)</label> <input
+																							class="form-control card-expiration"
+																							id="expirationdate" type="text"
 																							inputmode="numeric" />
 																					</div>
 																					<div class="col-6">
 																						<label for="securitycode" class="mb-0">Security
-																							Code</label>
-																						<input class="form-control card-csv"
+																							Code</label> <input class="form-control card-csv"
 																							id="securitycode" type="text" maxlength="3"
-																							 inputmode="numeric" />
+																							inputmode="numeric" />
 																					</div>
 																				</div>
 																				<div class="row">
-																					<input type="hidden" class="card-name" value="" id="forthecardname" />
+																					<input type="hidden" class="card-name" value=""
+																						id="forthecardname" />
 																				</div>
 																				<div class="row text-center">
 																					<div class="col-6">
@@ -703,8 +756,8 @@ if (authin != null) {
 											</div>
 										</div>
 
-										<div class="card-body p-2 p-xs-2" >
-											<div class="row" id="jqueryrefresh">
+										<div class="card-body p-2 p-xs-2">
+											<div class="row">
 												<%
 												if (card != null) {
 
@@ -727,16 +780,18 @@ if (authin != null) {
 														<h6 class="mb-0">
 															****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;<%=lastThree%>
 														</h6>
-														<span class="ms-auto"> <i
+														<span class="ms-auto" id="deletecard"
+															data-id="<%=c.getId()%>"> <i
 															class="fas fa-trash text-danger cursor-pointer"
 															data-bs-toggle="tooltip modal" data-bs-placement="top"
 															title="Delete Card"></i>
-														</span> <span data-bs-toggle="modal"
-															data-bs-target="#modal-form-edit" class="ms-auto">
-															<i class="fas fa-pencil-alt text-dark cursor-pointer"
+														</span> <span data-bs-toggle="modal" data-id="<%=c.getId()%>"
+															data-bs-target="#cardEdit" class="ms-auto"> <i
+															class="fas fa-pencil-alt text-dark cursor-pointer"
 															data-bs-toggle="tooltip modal" data-bs-placement="top"
 															title="Edit Card"></i>
-														</span> <span class="ms-auto"> <i
+														</span> <span class="ms-auto" id="viewcard"
+															data-id="<%=c.getId()%>"> <i
 															class="fas fa-eye text-dark cursor-pointer"
 															data-bs-toggle="tooltip modal" data-bs-placement="top"
 															title="View Card"></i>
@@ -763,7 +818,7 @@ if (authin != null) {
 																	<!-- <div class="payment-title">
 													              <h3>Add Card</h3>
 													              </div>-->
-																	<form >
+																	<form>
 																		<div class="Cardcontainer preload mx-auto">
 																			<div class="creditcard">
 																				<div class="front">
@@ -1071,7 +1126,7 @@ if (authin != null) {
 													</div>
 												</td>
 												<td class="text-xs font-weight-bold"><span
-													class="my-2 text-xs">Rs <%=nf.format(p.getPayments()) %></span></td>
+													class="my-2 text-xs">Rs <%=nf.format(p.getPayments())%></span></td>
 
 											</tr>
 											<%
@@ -2151,7 +2206,7 @@ if (authin != null) {
 		<!--   Core JS Files   -->
 		<script src="../assets/js/core/popper.min.js"></script>
 		<script src="../assets/js/core/bootstrap.min.js"></script>
-		<!-- <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>-->
+		<script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
 		<!-- <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script> -->
 		<script src="../assets/js/plugins/fullscren.js"></script>
 		<script src="../assets/js/plugins/chartjs.min.js"></script>
@@ -2279,11 +2334,11 @@ if (authin != null) {
 		<script type="text/javascript"
 			src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 		<!-- required to the excelsheet ends herer -->
-			<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<script>
 		$(document).ready(function() {
 			$(document).on('click','#addcarddetails',function(e){
-				//alert($("#authmail").val());
+				
 		    	var $myForm = $('#myFormAddcard');
 		 		if (!$myForm[0].checkValidity()) {
 		 		    $myForm.find(':submit').click();
@@ -2349,6 +2404,83 @@ if (authin != null) {
 				        })
 			    	}
 		       	
+		    })
+		    
+		    $(document).on('click','#viewcard',function(e){
+		    	
+		    	alert($(this).attr("data-id"));
+		    })
+		    
+		    $(document).on('click','#deletecard',function(e){
+		    	Swal.fire({
+		    		  title: 'Are you sure?',
+		    		  text: "You won't be able to revert this!",
+		    		  icon: 'warning',
+		    		  showCancelButton: true,
+		    		  confirmButtonColor: '#3085d6',
+		    		  cancelButtonColor: '#d33',
+		    		  confirmButtonText: 'Yes, delete it!'
+		    		}).then((result) => {
+		    		  if (result.isConfirmed) {
+		    			  $.ajax({
+		  		            type: 'POST',
+		  		            url: '../CusProfileServlet',
+		  		            data : "deleteid=" + $(this).attr("data-id") + "&email=" + $('#authmail').val(),
+		  		            success: function(response) {
+		  		                var oob = JSON.parse(response);
+		  		                if (oob.status == "deleted") {
+		  		                    const Toast = Swal.mixin({
+		  		                        toast: true,
+		  		                        position: 'top-end',
+		  		                        showConfirmButton: false,
+		  		                        timer: 2000,
+		  		                        timerProgressBar: true,
+		  		                        didOpen: (toast) => {
+		  		                            toast.addEventListener('mouseenter', Swal.stopTimer)
+		  		                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+		  		                        }
+		  		                    })
+		  	
+		  		                    Toast.fire({
+		  		                        icon: 'success',
+		  		                        title: 'Deleted Succesfully'
+		  		                    })
+		  		                }
+		  		                if (oob.status == "nodelete") {
+		  		                   
+		  		                    const Toast = Swal.mixin({
+		  		                        toast: true,
+		  		                        position: 'top-end',
+		  		                        showConfirmButton: false,
+		  		                        timer: 2000,
+		  		                        timerProgressBar: true,
+		  		                        didOpen: (toast) => {
+		  		                            toast.addEventListener('mouseenter', Swal.stopTimer)
+		  		                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+		  		                        }
+		  		                    })
+		  	
+		  		                    Toast.fire({
+		  		                        icon: 'error',
+		  		                        title: 'Deleteion Failed'
+		  		                    })
+		  		                }
+		  		                $("#jqueryrefresh").load(location.href + " #jqueryrefresh");
+		  		                
+		  		            },
+		  		            error: function() {
+		  		                alert("error");
+		  		            }
+		  	
+		  		        })
+		    		   
+		    		  }
+		    		})
+	    	
+		    })
+		    
+		    $(document).on('click','#editcard',function(e){
+		    	
 		    })
 		})
 		</script>

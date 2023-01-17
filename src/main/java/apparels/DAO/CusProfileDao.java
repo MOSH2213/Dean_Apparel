@@ -135,14 +135,15 @@ public class CusProfileDao {
 	//ends
 	
 	//delete the card 
-	public int deleteCard(int Id) {
+	public int deleteCard(int Id,String email) {
 		int result = 0;
 		try {
-			query = "DELETE FROM paycard WHERE id=?";
+			query = "DELETE FROM paycard WHERE id=? and email=?";
 			pst = this.con.prepareStatement(query);
 			
 			pst.setInt(1, Id);
-
+			pst.setString(2, email);
+			
 			result = pst.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

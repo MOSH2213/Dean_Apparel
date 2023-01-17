@@ -1,4 +1,4 @@
-<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -288,8 +288,8 @@ if (authin != null) {
 					<input type="hidden" id="pid" value="<%=o.getId()%>" /> <input
 						type="hidden" id="authmail"
 						value="<%=authin != null ? authin.getEmail() : ""%>" /> <input
-						type="hidden" id="oid" value=<%=o.getOid() %> />
-					<div class="card my-2" >
+						type="hidden" id="oid" value=<%=o.getOid()%> />
+					<div class="card my-2">
 						<div class="card-header p-3 pb-0">
 							<div class="d-flex justify-content-between align-items-center">
 								<div>
@@ -548,7 +548,8 @@ if (authin != null) {
 															</div>
 														</div>
 														<div class="text-center mt-2">
-															<button type="button" class="btn btn-dark rounded closethemodal"
+															<button type="button"
+																class="btn btn-dark rounded closethemodal"
 																data-bs-dismiss="modal">Close</button>
 															<button type="submit"
 																class="btn bg-primary text-white rounded InsertRate">
@@ -574,9 +575,9 @@ if (authin != null) {
 												class="avatar avatar-xxl me-3" alt="product image">
 										</div>
 										<%
-											String cancelled="";
-											cancelled = od.SelectCanceledOrder(o.getOid());
-											System.out.print(cancelled);
+										String cancelled = "";
+										cancelled = od.SelectCanceledOrder(o.getOid());
+										System.out.print(cancelled);
 										%>
 										<div>
 											<h6 class="text-lg mb-0 mt-2"><%=o.getName()%></h6>
@@ -590,16 +591,16 @@ if (authin != null) {
 											</p>
 											<span class="badge badge-sm bg-gradient-success">Delivered</span>
 											<%
-											}else if (cancelled !="" && Integer.parseInt(o.getDiff()) > 0) {
+											} else if (cancelled != "" && Integer.parseInt(o.getDiff()) > 0) {
 											%>
 											<p class="text-sm mb-2">
-												Cancelled 
-												<span class="text-sm text-bolder"><%=cancelled%></span>
+												Cancelled <span class="text-sm text-bolder"><%=cancelled%></span>
 												Due To Your Request
 											</p>
-											<span class="badge badge-sm bg-gradient-danger">Order Cancelled</span>
+											<span class="badge badge-sm bg-gradient-danger">Order
+												Cancelled</span>
 											<%
-											}else if(Integer.parseInt(o.getDiff()) > 0){
+											} else if (Integer.parseInt(o.getDiff()) > 0) {
 											%>
 											<p class="text-sm mb-3">
 												Order will be delivered in
@@ -608,7 +609,7 @@ if (authin != null) {
 											</p>
 											<span class="badge badge-sm bg-gradient-danger">Not
 												Delivered</span>
-											
+
 											<%
 											}
 											%>
@@ -620,24 +621,26 @@ if (authin != null) {
 									<%
 									if (Integer.parseInt(o.getDiff()) < 0) {
 									%>
-									<a data-bs-toggle="modal" data-bs-target="#feedbackModal" class="btn bg-gradient-info mb-0">FeedBack</a> 
-									<a class="btn bg-gradient-success mb-0" data-bs-toggle="modal" data-bs-target="#refundModal">Refund</a>
+									<a data-bs-toggle="modal" data-bs-target="#feedbackModal"
+										class="btn bg-gradient-info mb-0">FeedBack</a> <a
+										class="btn bg-gradient-success mb-0" data-bs-toggle="modal"
+										data-bs-target="#refundModal">Refund</a>
 									<%
 									}
-									
-									else if (cancelled !="" && Integer.parseInt(o.getDiff()) > 0) {
+
+									else if (cancelled != "" && Integer.parseInt(o.getDiff()) > 0) {
 									%>
-									<button disabled class="btn bg-gradient-danger mb-0" >Cancel</button>
+									<button disabled class="btn bg-gradient-danger mb-0">Cancel</button>
 									<%
 									}
-									
+
 									else if (Integer.parseInt(o.getDiff()) > 0) {
 									%>
 									<button class="btn bg-gradient-danger mb-0" id="CancelOrder">Cancel</button>
 									<%
 									}
 									%>
-									
+
 									<button data-bs-toggle="modal" class="d-none" id="openthemodal"
 										data-bs-target="#opModal">here</button>
 
@@ -661,8 +664,9 @@ if (authin != null) {
 														</div>
 
 														<div class="text-center mt-2">
-															<button type="button" class="btn btn-dark rounded closethemodal"
-																data-bs-dismiss="modal" >Close</button>
+															<button type="button"
+																class="btn btn-dark rounded closethemodal"
+																data-bs-dismiss="modal">Close</button>
 															<button type="submit"
 																class="btn bg-primary text-white rounded"
 																id="CancelOrderfurther">Submit</button>
@@ -673,50 +677,54 @@ if (authin != null) {
 										</div>
 									</div>
 									<!-- modal End cancellation-->
-									
+
 									<!-- modal refund -->
-									<div class="modal fade" id="refundModal" style="z-index: 99999;"
-										tabindex="-1" aria-labelledby="exampleModalLabel"
-										aria-hidden="true">
+									<div class="modal fade" id="refundModal"
+										style="z-index: 99999;" tabindex="-1"
+										aria-labelledby="exampleModalLabel" aria-hidden="true">
 										<div class="modal-dialog  modal-dialog-centered">
 											<div class="modal-content">
 												<div class="modal-body">
 													<form id="myFormRefund" action="javascript:0">
 														<div class="form-row">
-															<h5 class="ml-1 text-black text-start" style="font-weight: 700">
+															<h5 class="ml-1 text-black text-start"
+																style="font-weight: 700">
 																<%=o.getName()%></h5>
 														</div>
 														<div class="form-group">
-															<label for="exampleFormControlTextarea1" class="text-start">Reason
-																For Refunding</label>
+															<label for="exampleFormControlTextarea1"
+																class="text-start">Reason For Refunding</label>
 															<textarea class="form-control" id="refundreason" required
 																rows="5" name="refundreason"></textarea>
 														</div>
-														
+
 														<div class="row">
 															<div class="col-6">
 																<label for="inputState" class="text-start">Email</label>
 																<div class="form-group">
-																	<input type="email" disabled value="<%=o.getEmail() %>" class="form-control"
-																		placeholder="name@example.com" id="refundemail">
+																	<input type="email" disabled value="<%=o.getEmail()%>"
+																		class="form-control" placeholder="name@example.com"
+																		id="refundemail">
 																</div>
 															</div>
 															<div class="col-6">
 																<label for="inputState" class="text-start">Number</label>
 																<div class="form-group">
-																	<input class="form-control" type="tel"  required
-																	pattern="[0-7]{1}[0-9]{9}"
-																	title="Phone number with 0-7 and remaing 9 digit with 0-9"
-																	placeholder="+94771478777" id="refundtel">
+																	<input class="form-control" type="tel" required
+																		pattern="[0-7]{1}[0-9]{9}"
+																		title="Phone number with 0-7 and remaing 9 digit with 0-9"
+																		placeholder="+94771478777" id="refundtel">
 																</div>
 															</div>
 														</div>
-														
-														<input type="hidden"  id="refundtotal" value="<%=o.getTotal() %>"/>
-														
+
+														<input type="hidden" id="refundtotal"
+															value="<%=o.getTotal()%>" />
+
 														<div class="text-center mt-2">
-															<button type="button" class="btn btn-dark rounded closethemodal"
-																data-bs-dismiss="modal" >Close</button>
+															<button type="button"
+																class="btn btn-dark rounded closethemodal"
+																data-bs-dismiss="modal">Close</button>
 															<button type="submit"
 																class="btn bg-primary text-white rounded"
 																id="refundsubmit">Submit</button>
@@ -745,22 +753,23 @@ if (authin != null) {
 														<h5 class="ml-1 text-black" style="font-weight: 700">
 															<%=o.getName()%></h5>
 													</div>
-													
+
 													<div class="row">
 														<div class="col-6">
 															<label for="inputState">Email</label>
 															<div class="form-group">
-																<input type="email" disabled value="<%=o.getEmail() %>" class="form-control"
-																	placeholder="name@example.com" id="feedbackemail">
+																<input type="email" disabled value="<%=o.getEmail()%>"
+																	class="form-control" placeholder="name@example.com"
+																	id="feedbackemail">
 															</div>
 														</div>
 														<div class="col-6">
 															<label for="inputState">Number</label>
 															<div class="form-group">
-																<input class="form-control" type="tel"  required
-																pattern="[0-7]{1}[0-9]{9}"
-																title="Phone number with 0-7 and remaing 9 digit with 0-9"
-																placeholder="+94771478777" id="feedbacktel">
+																<input class="form-control" type="tel" required
+																	pattern="[0-7]{1}[0-9]{9}"
+																	title="Phone number with 0-7 and remaing 9 digit with 0-9"
+																	placeholder="+94771478777" id="feedbacktel">
 															</div>
 														</div>
 													</div>
@@ -768,33 +777,36 @@ if (authin != null) {
 														<div class="col-6">
 															<div class="form-group">
 																<label for="example-search-input"
-																	class="form-control-label">FirstName</label> <input required
-																	class="form-control" value="<%=authin!=null?authin.getFname():"" %>" type="text" placeholder="john"
-																	id="feedbackfname">
+																	class="form-control-label">FirstName</label> <input
+																	required class="form-control"
+																	value="<%=authin != null ? authin.getFname() : ""%>"
+																	type="text" placeholder="john" id="feedbackfname">
 															</div>
 														</div>
 														<div class="col-6">
 															<div class="form-group">
 																<label for="example-search-input"
-																	class="form-control-label">LastName</label> <input required
-																	class="form-control" value="<%=authin!=null?authin.getLname():"" %>" type="text" placeholder="smith"
-																	id="feedbacklname">
+																	class="form-control-label">LastName</label> <input
+																	required class="form-control"
+																	value="<%=authin != null ? authin.getLname() : ""%>"
+																	type="text" placeholder="smith" id="feedbacklname">
 															</div>
 														</div>
 													</div>
-													
+
 													<div class="form-group">
 														<label for="exampleFormControlTextarea1">FeedBack</label>
-														<textarea class="form-control"
-															id="feedbackcomment" required rows="5"></textarea>
+														<textarea class="form-control" id="feedbackcomment"
+															required rows="5"></textarea>
 													</div>
 
 													<div class="text-center mt-2">
-														<button type="button" class="btn btn-dark rounded closethemodal"
+														<button type="button"
+															class="btn btn-dark rounded closethemodal"
 															data-bs-dismiss="modal">Close</button>
 														<button type="submit"
-															class="btn bg-primary text-white rounded" id="feedbacksubmit">
-															Submit</button>
+															class="btn bg-primary text-white rounded"
+															id="feedbacksubmit">Submit</button>
 													</div>
 												</form>
 											</div>
@@ -1050,35 +1062,34 @@ if (authin != null) {
 												<tbody>
 													<%
 													if (order != null) {
-														
+
 														for (Order o : order) {
-														
 													%>
 													<tr>
 														<td>
 															<div class="d-flex px-1 py-1">
 																<div>
-																	<img
-																		src="../assets/img/Products/<%=o.getThumbnail() %>"
+																	<img src="../assets/img/Products/<%=o.getThumbnail()%>"
 																		class="avatar avatar-sm me-3" alt="user1">
 																</div>
 																<div class="d-flex flex-column justify-content-center">
-																	<h6 class="mb-0 text-sm"><%=o.getName() %></h6>
+																	<h6 class="mb-0 text-sm"><%=o.getName()%></h6>
 																	<p class="text-xs text-secondary mb-0">
-																		<%=o.getOplaceddate() %></p>
+																		<%=o.getOplaceddate()%></p>
 																</div>
 															</div>
 														</td>
 
 														<td class="align-middle text-center"><a
-															class="btn btn-link text-dark px-3 mb-0 showOrder" data-id="<%=o.getOid() %>"><i
-																class="fas fa-eye text-dark me-2"  aria-hidden="true"></i>See</a></td>
+															class="btn btn-link text-dark px-3 mb-0 showOrder"
+															data-id="<%=o.getOid()%>"><i
+																class="fas fa-eye text-dark me-2" aria-hidden="true"></i>See</a></td>
 													</tr>
 													<%
-														}
+													}
 													}
 													%>
-													
+
 												</tbody>
 											</table>
 										</div>

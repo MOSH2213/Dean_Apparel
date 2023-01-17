@@ -38,18 +38,37 @@ public class CusProfileServlet extends HttpServlet {
 			String email = request.getParameter("email");
 			String expire = request.getParameter("card_expiration");
 			
+			String deleteId= request.getParameter("deleteid");
 			CusProfileDao cpDao= new CusProfileDao(DbCon.getConnection());
-			result= cpDao.checkCardinfo(email,cnum);
-			//System.out.println("return of re"+result);
-			if(result>1) {
-				obj.put("status","exist");
-				out.print(obj);
+			
+			if(deleteId!=null) {
+				result = cpDao.deleteCard(Integer.parseInt(deleteId),email);
+				
+				if(result==1) {
+					obj.put("status","deleted");
+					out.print(obj);
+				}
+				else {
+					
+					obj.put("status","nodelete");
+					out.print(obj);
+				}
+			}else {
+				result= cpDao.checkCardinfo(email,cnum);
+				
+				if(result>1) {
+					obj.put("status","exist");
+					out.print(obj);
+				}
+				else {
+					cpDao.InsertCardinfo(cholder, cnum,expire, csv, cname, email, role);
+					obj.put("status","noexist");
+					out.print(obj);
+				}
 			}
-			else {
-				cpDao.InsertCardinfo(cholder, cnum,expire, csv, cname, email, role);
-				obj.put("status","noexist");
-				out.print(obj);
-			}
+			
+			
+			
 			
 		} catch (Exception e) {
 			

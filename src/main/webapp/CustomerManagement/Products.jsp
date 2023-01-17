@@ -6,15 +6,15 @@
 
 <%
 User authin = (User) request.getSession().getAttribute("auth");
-String cartquantity = (String)request.getSession().getAttribute("quantity");
-String wishquantity = (String)request.getSession().getAttribute("wishquantity");
+String cartquantity = (String) request.getSession().getAttribute("quantity");
+String wishquantity = (String) request.getSession().getAttribute("wishquantity");
 if (authin != null) {
 	request.setAttribute("authin", authin);
 	//for the cart count
-	cartquantity = (String)request.getSession().getAttribute("quantity");
+	cartquantity = (String) request.getSession().getAttribute("quantity");
 	request.setAttribute("cartquantity", cartquantity);
 	//for the wishlistcount
-	wishquantity = (String)request.getSession().getAttribute("wishquantity");
+	wishquantity = (String) request.getSession().getAttribute("wishquantity");
 	request.setAttribute("wishquantity", wishquantity);
 
 } else {
@@ -81,15 +81,14 @@ List<Product> softprod = pd.getsoftWear();
 	</noscript>
 
 	<div class="min-height-300 bg-primary position-absolute w-100"></div>
-	<aside style="z-index:9999;"
+	<aside style="z-index: 9999;"
 		class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 "
 		id="sidenav-main">
 		<div class="sidenav-header">
 			<i
 				class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
 				aria-hidden="true" id="iconSidenav"></i> <a class="navbar-brand m-0"
-				href="CusProfile.jsp">
-				 <!-- the image is hidden and this therby prevents darkmode violation -->
+				href="CusProfile.jsp"> <!-- the image is hidden and this therby prevents darkmode violation -->
 				<img src="../assets/img/logo-ct-dark.png" class="navbar-brand-img"
 				style="display: none;" alt="">
 				<div
@@ -127,8 +126,7 @@ List<Product> softprod = pd.getsoftWear();
 								<i class="ni ni-archive-2 text-success text-sm opacity-10"></i>
 							</div> <span class="nav-link-text ms-1">Order Details</span>
 					</a></li>
-					<li class="nav-item"><a href="CusProfile.jsp"
-						class="nav-link">
+					<li class="nav-item"><a href="CusProfile.jsp" class="nav-link">
 							<div
 								class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
 								<i class="ni ni-archive-2 text-success text-sm opacity-10"></i>
@@ -187,7 +185,7 @@ List<Product> softprod = pd.getsoftWear();
 								</div>
 						</a>
 						</li>
-						
+
 						<li class="nav-item px-3 d-flex align-items-center"><a
 							href="Cart.jsp" class="nav-link text-white p-0"> <i
 								class="ni ni-cart text-white text-lg opacity-10"></i> <span
@@ -198,10 +196,11 @@ List<Product> softprod = pd.getsoftWear();
 							href="Whishlist.jsp" class="nav-link text-white p-0"> <i
 								class="ni ni-favourite-28 text-white text-lg opacity-10"></i> <span
 								class="badge badge-md badge-circle badge-floating badge-white text-dark"
-								style="position: relative; left: -0px; top: -0px;" id="wishquantity"><%=authin != null ? wishquantity : "0"%></span>
-						</a>
-						</li>
-						<li class="nav-item px-3 d-flex align-items-center d-none d-sm-inline"><a
+								style="position: relative; left: -0px; top: -0px;"
+								id="wishquantity"><%=authin != null ? wishquantity : "0"%></span>
+						</a></li>
+						<li
+							class="nav-item px-3 d-flex align-items-center d-none d-sm-inline"><a
 							href="javascript:;" class="nav-link text-white p-0"> <span
 								class="text-uppercase"><%=authin != null ? authin.getFname() : "John Doe"%></span>
 						</a></li>
@@ -251,8 +250,7 @@ List<Product> softprod = pd.getsoftWear();
 												</h6>
 											</div>
 										</div>
-								</a>
-								</li>
+								</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -272,8 +270,10 @@ List<Product> softprod = pd.getsoftWear();
 								if (!products.isEmpty()) {
 									for (Product p : products) {
 								%>
-								<input type="hidden" value="<%=p.getId()%>" class="pid" />
-								 <input	type="hidden" value="<%=authin!=null?authin.getEmail():"notloged" %>" id="authmail" />
+								<input type="hidden" value="<%=p.getId()%>" class="pid" /> <input
+									type="hidden"
+									value="<%=authin != null ? authin.getEmail() : "notloged"%>"
+									id="authmail" />
 								<div class="col-3 mb-3" style="width: 250px;">
 									<div class="card card-blog  shadow p-3"
 										style="width: 230px; height: 380px;">
@@ -281,7 +281,6 @@ List<Product> softprod = pd.getsoftWear();
 											<a class="d-block blur-shadow-image">
 												<div class="shadow border-radius-lg"
 													style="height: 200px; background-image: url('../assets/img/Products/<%=p.getThumbnail()%>'); background-repeat: no-repeat; background-size: cover;">
-
 												</div>
 												<h5 class="mt-2 mb-0 text-truncate"><%=p.getName()%></h5>
 											</a>
@@ -325,9 +324,17 @@ List<Product> softprod = pd.getsoftWear();
 											<div class="row">
 												<div class="col-12 d-flex justify-content-between">
 													<button
-														class="btn btn-outline-danger mb-0 btn-sm shadow p-2 w-25 ad2wish" data-id="<%=p.getId()%>"><i class="fa fa-heart text-danger" style="font-size:15px;" aria-hidden="true"></i></button>
+														class="btn btn-outline-danger mb-0 btn-sm shadow p-2 w-25 ad2wish"
+														data-id="<%=p.getId()%>">
+														<i class="fa fa-heart text-danger"
+															style="font-size: 15px;" aria-hidden="true"></i>
+													</button>
 													<button
-														class="btn btn-outline-primary mb-0 btn-sm shadow p-2 w-25 ad2cart" data-id="<%=p.getId()%>"><i class="fa fa-shopping-cart" style="font-size:15px;" aria-hidden="true"></i></button>
+														class="btn btn-outline-primary mb-0 btn-sm shadow p-2 w-25 ad2cart"
+														data-id="<%=p.getId()%>">
+														<i class="fa fa-shopping-cart" style="font-size: 15px;"
+															aria-hidden="true"></i>
+													</button>
 													<a href="singleproduct.jsp?id=<%=p.getId()%>"
 														class="btn bg-primary text-white mb-0 btn-sm shadow">Buy</a>
 												</div>
@@ -379,7 +386,7 @@ List<Product> softprod = pd.getsoftWear();
 													for (Product sp : softprod) {
 														double qualityrate = pd.getQuality(sp.getId());
 														int value = (int) qualityrate;
-														double ratestable[]= pd.getRating(Integer.toString(sp.getId()));
+														double ratestable[] = pd.getRating(Integer.toString(sp.getId()));
 														int ratstartable = (int) Math.round(ratestable[0]);
 												%>
 												<tr>
@@ -408,7 +415,7 @@ List<Product> softprod = pd.getsoftWear();
 															<i class="fas fa-star" aria-hidden="true"></i>
 															<%
 															}
-															for (int j = 1; j <= (5 - ratstartable ); j++) {
+															for (int j = 1; j <= (5 - ratstartable); j++) {
 															%>
 															<i class="far fa-star" aria-hidden="true"></i>
 															<%
@@ -427,9 +434,11 @@ List<Product> softprod = pd.getsoftWear();
 														</div>
 													</td>
 													<td class="align-middle text-center">
-													<button
-														class="btn btn-outline-primary mb-0 btn-sm shadow ad2cart" data-id="<%=sp.getId()%>"><i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
-														<a href="singleproduct.jsp?id=<%=sp.getId()%>"
+														<button
+															class="btn btn-outline-primary mb-0 btn-sm shadow ad2cart"
+															data-id="<%=sp.getId()%>">
+															<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+														</button> <a href="singleproduct.jsp?id=<%=sp.getId()%>"
 														class="btn bg-primary text-white mb-0 btn-sm shadow">Buy</a>
 													</td>
 												</tr>
