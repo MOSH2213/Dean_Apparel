@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import apparels.Modal.Card;
+import apparels.Modal.Product;
 import apparels.Modal.Review;
 
 
@@ -22,6 +23,36 @@ public class CusProfileDao {
 	public CusProfileDao(Connection con) {
 		this.con = con;
 	}
+	
+	//select Card Info From the id
+	public Card getCardById(String id) {
+		Card cd = null;
+		try {
+			query = "SELECT id,name,cnum,expire,cvc,ctype,added from paycard where id=?";
+
+			pst = this.con.prepareStatement(query);
+			pst.setString(1, id);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				cd = new Card();
+				
+				cd.setId(rs.getInt("id"));
+				cd.setCname(rs.getString("name"));
+				cd.setCnum(rs.getString("cnum"));
+				cd.setCexpire(rs.getString("expire"));
+				cd.setCvc(rs.getString("cvc"));
+				cd.setCtype(rs.getString("ctype"));
+				cd.setDate(rs.getString("added"));
+				
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cd;
+
+	}
+	//ends here
 	
 	//select if exist cards details
 	public int checkCardinfo(String email,String cnum) {

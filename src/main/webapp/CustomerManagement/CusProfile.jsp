@@ -33,6 +33,7 @@ if (authin != null) {
 } else {
 	response.sendRedirect("Cuslogin.jsp");
 }
+//System.out.print(card);
 %>
 
 <!DOCTYPE html>
@@ -337,7 +338,7 @@ if (authin != null) {
 											class="overflow-hidden position-relative border-radius-xl"
 											style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/card-visa.jpg');">
 											<span class="mask bg-gradient-dark"></span>
-											<div class="card-body position-relative z-index-1 p-3 ">
+											<div class="card-body position-relative z-index-1 p-3" id="cardGenServlet">
 												<div class="row mt-4">
 													<div class="col-8">
 														<img class="w-30" src="../assets/img/logos/chip.png"
@@ -386,7 +387,7 @@ if (authin != null) {
 									}
 									}
 									%>
-
+									
 									<%
 									if (card.isEmpty()) {
 									%>
@@ -698,13 +699,13 @@ if (authin != null) {
 																					<div class="col-4">
 																						<label class="mb-0" for="name">Name</label> <input
 																							id="name" class="form-control card-holder"
-																							maxlength="20" type="text" />
+																							maxlength="20" type="text" required/>
 																					</div>
 																					<div class="col-8">
 																						<label class="mb-0" for="cardnumber">Card
 																							Number</label><span id="generatecard">generate
 																							random</span> <input class="form-control card-number"
-																							id="cardnumber" type="text" inputmode="numeric" />
+																							id="cardnumber" type="text" inputmode="numeric" required/>
 																						<svg id="ccicon" class="ccicon" width="750"
 																							height="471" viewBox="0 0 750 471" version="1.1"
 																							xmlns="http://www.w3.org/2000/svg"
@@ -718,13 +719,13 @@ if (authin != null) {
 																							(mm/yy)</label> <input
 																							class="form-control card-expiration"
 																							id="expirationdate" type="text"
-																							inputmode="numeric" />
+																							inputmode="numeric" required/>
 																					</div>
 																					<div class="col-6">
 																						<label for="securitycode" class="mb-0">Security
 																							Code</label> <input class="form-control card-csv"
 																							id="securitycode" type="text" maxlength="3"
-																							inputmode="numeric" />
+																							inputmode="numeric" required />
 																					</div>
 																				</div>
 																				<div class="row">
@@ -2408,7 +2409,59 @@ if (authin != null) {
 		    
 		    $(document).on('click','#viewcard',function(e){
 		    	
-		    	alert($(this).attr("data-id"));
+		    	$.ajax({
+  		            type: 'POST',
+  		            url: '../CusProfileServlet',
+  		            data : "viewid=" + $(this).attr("data-id") + "&email=" + $('#authmail').val(),
+  		            success: function(response) {
+  		                var oob = JSON.parse(response);
+  		                if (oob.status == "done") {
+  		                	$("#cardGenServlet").html(oob.value);
+  		                    const Toast = Swal.mixin({
+  		                        toast: true,
+  		                        position: 'top-end',
+  		                        showConfirmButton: false,
+  		                        timer: 2000,
+  		                        timerProgressBar: true,
+  		                        didOpen: (toast) => {
+  		                            toast.addEventListener('mouseenter', Swal.stopTimer)
+  		                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+  		                        }
+  		                    })
+  	
+  		                    Toast.fire({
+  		                        icon: 'success',
+  		                        title: 'Card Selected'
+  		                    })
+  		                  
+  		                }
+  		                else  {
+  		                   
+  		                    const Toast = Swal.mixin({
+  		                        toast: true,
+  		                        position: 'top-end',
+  		                        showConfirmButton: false,
+  		                        timer: 2000,
+  		                        timerProgressBar: true,
+  		                        didOpen: (toast) => {
+  		                            toast.addEventListener('mouseenter', Swal.stopTimer)
+  		                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+  		                        }
+  		                    })
+  	
+  		                    Toast.fire({
+  		                        icon: 'error',
+  		                        title: 'Request Failed'
+  		                    })
+  		                }
+  		              
+  		                
+  		            },
+  		            error: function() {
+  		                alert("error");
+  		            }
+  	
+  		        })
 		    })
 		    
 		    $(document).on('click','#deletecard',function(e){
