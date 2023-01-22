@@ -898,7 +898,17 @@
 											</div>
 										</div>
 
-
+										<div class="row">
+											<div class="col-12 d-flex align-items-end mt-0 mb-3">
+												<select class="form-select"
+													aria-label="Default select example">
+													<option selected value="1">One</option>
+													<option value="2">Two</option>
+													<option value="3">Three</option>
+												</select>
+											</div>
+										</div>
+										
 										<div class="row mb-2">
 											<div class="col-md-4 d-flex align-items-end mt-0">
 												<div class="dropdown">
@@ -977,19 +987,16 @@
 
 											</div>
 											<div class="col-md-4 d-flex align-items-end mt-0 ">
-												<select class="form-select"
-													aria-label="Default select example">
-													<option selected value="1">One</option>
-													<option value="2">Two</option>
-													<option value="3">Three</option>
-												</select>
+												 <input style="color: #5E72E4; font-weight: 600; font-size: 15px; border:1px #5E72E4 solid" type="date" class="rounded p-1 bg bg-outline-secondary" name="SalaryDate">
 											</div>
+											
 										</div>
 
 										<div class="row mt-3">
 											<div class="col-12 mt-0 text-center">
 												<div class="form-group">
-													<textarea placeholder="Any Salary Related Notes..." style=" resize: none;" class="form-control"
+													<textarea placeholder="Any Salary Related Notes..."
+														style="resize: none;" class="form-control"
 														id="exampleFormControlTextarea1" rows="7"></textarea>
 												</div>
 											</div>
@@ -3114,7 +3121,11 @@
     </script>
 
 	<script>
+		//for the checkboxes withour being destructed
 	    $('#columnsListDropDown li').click(function(e){
+	        e.stopPropagation();
+	    })
+	     $('#columnsListDropDown2 li').click(function(e){
 	        e.stopPropagation();
 	    })
     </script>
