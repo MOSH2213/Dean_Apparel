@@ -552,82 +552,15 @@
 										</div>
 										<div class="ms-auto my-auto mt-lg-0 mt-4">
 											<div class="ms-auto my-auto">
-												<a href="#" class="btn bg-gradient-primary btn-sm mb-0"
+												<!-- <a href="#" class="btn bg-gradient-primary btn-sm mb-0"
 													data-bs-toggle="modal" data-bs-target="#AddInventory">+&nbsp;
-													New Product</a>
+													New Product</a>-->
 												<button type="button"
 													class="btn btn-outline-primary btn-sm mb-0"
 													data-bs-toggle="modal" data-bs-target="#importInventory">
 													Import</button>
 
-												<!-- modal of add inventory starts -->
-												<div class="modal fade" id="AddInventory" tabindex="-1"
-													aria-hidden="true">
-													<div class="modal-dialog modal-lg mt-lg-10">
-														<div class="modal-content">
-															<div class="modal-body">
-																<h4>Add Details</h4>
-																<form class="row g-3">
-																	<div class="col-md-6">
-																		<label for="inputEmail4" class="form-label">Email</label>
-																		<input type="email" class="form-control"
-																			id="inputEmail4">
-																	</div>
-																	<div class="col-md-6">
-																		<label for="inputPassword4" class="form-label">Password</label>
-																		<input type="password" class="form-control"
-																			id="inputPassword4">
-																	</div>
-																	<div class="col-12">
-																		<label for="inputAddress" class="form-label">Address</label>
-																		<input type="text" class="form-control"
-																			id="inputAddress" placeholder="1234 Main St">
-																	</div>
-																	<div class="col-12">
-																		<label for="inputAddress2" class="form-label">Address
-																			2</label> <input type="text" class="form-control"
-																			id="inputAddress2"
-																			placeholder="Apartment, studio, or floor">
-																	</div>
-																	<div class="col-12">
-																		<input type="file" class="form-control"
-																			id="inputGroupFile01">
-																	</div>
-																	<div class="col-md-6">
-																		<label for="inputCity" class="form-label">City</label>
-																		<input type="text" class="form-control" id="inputCity">
-																	</div>
-																	<div class="col-md-4">
-																		<label for="inputState" class="form-label">State</label>
-																		<select id="inputState" class="form-select">
-																			<option selected>Choose...</option>
-																			<option>...</option>
-																		</select>
-																	</div>
-																	<div class="col-md-2">
-																		<label for="inputZip" class="form-label">Zip</label> <input
-																			type="text" class="form-control" id="inputZip">
-																	</div>
-																	<div class="col-12">
-																		<div class="form-check">
-																			<input class="form-check-input" type="checkbox"
-																				id="gridCheck"> <label
-																				class="form-check-label" for="gridCheck">
-																				Check me out </label>
-																		</div>
-																	</div>
-																	<div class="col-12">
-																		<button type="submit" class="btn btn-primary">Sign
-																			in</button>
-																		<button data-bs-dismiss="modal" type="submit"
-																			class="btn btn-primary">Close</button>
-																	</div>
-																</form>
-															</div>
-														</div>
-													</div>
-												</div>
-												<!-- modal ends herer -->
+
 
 												<!-- modal of import starts here -->
 												<div class="modal fade" id="importInventory" tabindex="-1"
@@ -675,11 +608,11 @@
 										<table class="table" id="datatable-search1">
 											<thead class="thead-light">
 												<tr>
-													<th>Product</th>
-													<th>Category</th>
-													<th>Price</th>
-													<th>SKU</th>
-													<th>Quantity</th>
+													<th class="w-30">Employee</th>
+													<th class="text-center">Email</th>
+													<th class="text-center">Department</th>
+													<th class="text-center">Salary</th>
+													<th class="text-center">Joined</th>
 													<th></th>
 												</tr>
 											</thead>
@@ -694,146 +627,116 @@
 															<h6 class="ms-3 my-auto">BKLGO Full Zip Hoodie</h6>
 														</div>
 													</td>
-													<td class="text-sm">Clothing</td>
-													<td class="text-sm">$1,321</td>
-													<td class="text-sm">243598234</td>
-													<td class="text-sm">0</td>
-													<td>
-														<a href="#" data-bs-toggle="modal"
-															data-bs-target="#">
-														<span class="badge badge-warning badge-sm">
-															Generate Salary
+													<td class="text-sm text-center">Clothing</td>
+													<td class="text-sm text-center">$1,321</td>
+													<td class="text-sm text-center">243598234</td>
+													<td class="text-sm text-center">0</td>
+													<td class="text-center"><a href="#"
+														data-bs-toggle="modal" data-bs-target="#GenerateSlip">
+															<span class="badge badge-warning badge-sm">
+																Generate Salary </span>
+													</a> <a href="#" data-bs-toggle="modal"
+														data-bs-target="#ViewSalarySlip"> <span
+															class="badge badge-success badge-sm"> View PaySlip
 														</span>
-														</a>
-														<a href="#" data-bs-toggle="modal"
-															data-bs-target="#ViewSalarySlip">
-														<span class="badge badge-success badge-sm">
-															View PaySlip
-														</span>
-														</a>
-														
-													</td>
+													</a></td>
 												</tr>
 												<tr>
 													<td>
 														<div class="d-flex">
 
 															<img class="w-10 ms-3"
-																src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/macbook-pro.jpg"
-																alt="mac">
-															<h6 class="ms-3 my-auto">MacBook Pro</h6>
+																src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/adidas-hoodie.jpg"
+																alt="hoodie">
+															<h6 class="ms-3 my-auto">BKLGO Full Zip Hoodie</h6>
 														</div>
 													</td>
-													<td class="text-sm">Electronics</td>
-													<td class="text-sm">$1,869</td>
-													<td class="text-sm">877712</td>
-													<td class="text-sm">0</td>
-													<td>
-														<a href="#" data-bs-toggle="modal"
-															data-bs-target="#">
-														<span class="badge badge-warning badge-sm">
-															Generate Salary
+													<td class="text-sm text-center">Clothing</td>
+													<td class="text-sm text-center">$1,321</td>
+													<td class="text-sm text-center">243598234</td>
+													<td class="text-sm text-center">0</td>
+													<td class="text-center"><a href="#"
+														data-bs-toggle="modal" data-bs-target="#GenerateSlip">
+															<span class="badge badge-warning badge-sm">
+																Generate Salary </span>
+													</a> <a href="#" data-bs-toggle="modal"
+														data-bs-target="#ViewSalarySlip"> <span
+															class="badge badge-success badge-sm"> View PaySlip
 														</span>
-														</a>
-														<a href="#" data-bs-toggle="modal"
-															data-bs-target="#ViewSalarySlip">
-														<span class="badge badge-success badge-sm">
-															View PaySlip
-														</span>
-														</a>
-														
-													</td>
+													</a></td>
 												</tr>
-												
+
 												<tr>
 													<td>
 														<div class="d-flex">
 
 															<img class="w-10 ms-3"
-																src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/burberry.jpg"
-																alt="undercover">
-															<h6 class="ms-3 my-auto">Burberry Low-Tops</h6>
+																src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/adidas-hoodie.jpg"
+																alt="hoodie">
+															<h6 class="ms-3 my-auto">BKLGO Full Zip Hoodie</h6>
 														</div>
 													</td>
-													<td class="text-sm">Shoes</td>
-													<td class="text-sm">$869</td>
-													<td class="text-sm">634729</td>
-													<td class="text-sm">725</td>
-													<td>
-														<a href="#" data-bs-toggle="modal"
-															data-bs-target="#">
-														<span class="badge badge-warning badge-sm">
-															Generate Salary
+													<td class="text-sm text-center">Clothing</td>
+													<td class="text-sm text-center">$1,321</td>
+													<td class="text-sm text-center">243598234</td>
+													<td class="text-sm text-center">0</td>
+													<td class="text-center"><a href="#"
+														data-bs-toggle="modal" data-bs-target="#GenerateSlip">
+															<span class="badge badge-warning badge-sm">
+																Generate Salary </span>
+													</a> <a href="#" data-bs-toggle="modal"
+														data-bs-target="#ViewSalarySlip"> <span
+															class="badge badge-success badge-sm"> View PaySlip
 														</span>
-														</a>
-														<a href="#" data-bs-toggle="modal"
-															data-bs-target="#ViewSalarySlip">
-														<span class="badge badge-success badge-sm">
-															View PaySlip
-														</span>
-														</a>
-														
-													</td>
+													</a></td>
 												</tr>
 												<tr>
 													<td>
 														<div class="d-flex">
 
 															<img class="w-10 ms-3"
-																src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/d&g-skirt.jpg"
-																alt="D&G">
-															<h6 class="ms-3 my-auto">Dolce & Gabbana Skirt</h6>
+																src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/adidas-hoodie.jpg"
+																alt="hoodie">
+															<h6 class="ms-3 my-auto">BKLGO Full Zip Hoodie</h6>
 														</div>
 													</td>
-													<td class="text-sm">Designer</td>
-													<td class="text-sm">$999</td>
-													<td class="text-sm">01827391</td>
-													<td class="text-sm">0</td>
-													<td>
-														<a href="#" data-bs-toggle="modal"
-															data-bs-target="#">
-														<span class="badge badge-warning badge-sm">
-															Generate Salary
+													<td class="text-sm text-center">Clothing</td>
+													<td class="text-sm text-center">$1,321</td>
+													<td class="text-sm text-center">243598234</td>
+													<td class="text-sm text-center">0</td>
+													<td class="text-center"><a href="#"
+														data-bs-toggle="modal" data-bs-target="#GenerateSlip">
+															<span class="badge badge-warning badge-sm">
+																Generate Salary </span>
+													</a> <a href="#" data-bs-toggle="modal"
+														data-bs-target="#ViewSalarySlip"> <span
+															class="badge badge-success badge-sm"> View PaySlip
 														</span>
-														</a>
-														<a href="#" data-bs-toggle="modal"
-															data-bs-target="#ViewSalarySlip">
-														<span class="badge badge-success badge-sm">
-															View PaySlip
-														</span>
-														</a>
-														
-													</td>
+													</a></td>
 												</tr>
 												<tr>
 													<td>
 														<div class="d-flex">
 
 															<img class="w-10 ms-3"
-																src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/undercover.jpg"
-																alt="undercover">
-															<h6 class="ms-3 my-auto">Undercover T-shirt</h6>
+																src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/adidas-hoodie.jpg"
+																alt="hoodie">
+															<h6 class="ms-3 my-auto">BKLGO Full Zip Hoodie</h6>
 														</div>
 													</td>
-													<td class="text-sm">Shoes</td>
-													<td class="text-sm">$869</td>
-													<td class="text-sm">634729</td>
-													<td class="text-sm">725</td>
-													<td>
-														<a href="#" data-bs-toggle="modal"
-															data-bs-target="#">
-														<span class="badge badge-warning badge-sm">
-															Generate Salary
+													<td class="text-sm text-center">Clothing</td>
+													<td class="text-sm text-center">$1,321</td>
+													<td class="text-sm text-center">243598234</td>
+													<td class="text-sm text-center">0</td>
+													<td class="text-center"><a href="#"
+														data-bs-toggle="modal" data-bs-target="#GenerateSlip">
+															<span class="badge badge-warning badge-sm">
+																Generate Salary </span>
+													</a> <a href="#" data-bs-toggle="modal"
+														data-bs-target="#ViewSalarySlip"> <span
+															class="badge badge-success badge-sm"> View PaySlip
 														</span>
-														</a>
-														<a href="#" data-bs-toggle="modal"
-															data-bs-target="#ViewSalarySlip">
-														<span class="badge badge-success badge-sm">
-															View PaySlip
-														</span>
-														</a>
-														
-													</td>
+													</a></td>
 												</tr>
 											</tbody>
 										</table>
@@ -842,7 +745,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- edit modal strarts here -->
+					<!-- payslip modal strarts here -->
 					<div class="modal fade" id="ViewSalarySlip" tabindex="-1"
 						role="dialog" aria-labelledby="exampleModalLabel"
 						aria-hidden="true">
@@ -967,6 +870,148 @@
 							</div>
 						</div>
 					</div>
+					<!-- payslip modal ends here -->
+
+					<!-- geneate slipo modal starts here -->
+					<div class="modal fade" id="GenerateSlip" tabindex="-1"
+						aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+								<div class="modal-body">
+									<form>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="mb-3">
+													<label for="exampleInputEmail1" class="form-label">Email
+														address</label> <input type="email" class="form-control"
+														id="exampleInputEmail1" aria-describedby="emailHelp">
+
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="mb-3">
+													<label for="exampleInputEmail1" class="form-label">Email
+														address</label> <input type="email" class="form-control"
+														id="exampleInputEmail1" aria-describedby="emailHelp">
+
+												</div>
+											</div>
+										</div>
+
+
+										<div class="row mb-2">
+											<div class="col-md-4 d-flex align-items-end mt-0">
+												<div class="dropdown">
+													<button
+														class="btn btn-sm btn-outline-primary dropdown-toggle mb-0 p-2"
+														type="button" id="dropdownMenuButton"
+														data-bs-toggle="dropdown" aria-expanded="false">
+														Choose Allowance</button>
+													<ul class="dropdown-menu " id="columnsListDropDown"
+														aria-labelledby="dropdownMenuButton">
+														<li><a class="dropdown-item" href="#">
+																<div class="form-check">
+																	<input class="form-check-input" type="checkbox"
+																		value="" id="Checkme1" /> <label
+																		class="form-check-label" for="Checkme1">Check
+																		me</label>
+																</div>
+														</a></li>
+														<li><a class="dropdown-item" href="#">
+																<div class="form-check">
+																	<input class="form-check-input" type="checkbox"
+																		value="" id="Checkme2" checked /> <label
+																		class="form-check-label" for="Checkme2">Check
+																		me</label>
+																</div>
+														</a></li>
+														<li><a class="dropdown-item" href="#">
+																<div class="form-check">
+																	<input class="form-check-input" type="checkbox"
+																		value="" id="Checkme3" /> <label
+																		class="form-check-label" for="Checkme3">Check
+																		me</label>
+																</div>
+														</a></li>
+
+													</ul>
+												</div>
+
+											</div>
+											<div class="col-md-4 d-flex align-items-end mt-0 ">
+												<div class="dropdown">
+													<button
+														class="btn btn-sm btn-outline-primary dropdown-toggle mb-0 p-2"
+														type="button" id="dropdownMenuButton"
+														data-bs-toggle="dropdown" aria-expanded="false">
+														Choose Deductions</button>
+													<ul class="dropdown-menu " id="columnsListDropDown2"
+														aria-labelledby="dropdownMenuButton">
+														<li><a class="dropdown-item" href="#">
+																<div class="form-check">
+																	<input class="form-check-input" type="checkbox"
+																		value="" id="Checkme1" /> <label
+																		class="form-check-label" for="Checkme1">Check
+																		me</label>
+																</div>
+														</a></li>
+														<li><a class="dropdown-item" href="#">
+																<div class="form-check">
+																	<input class="form-check-input" type="checkbox"
+																		value="" id="Checkme2" checked /> <label
+																		class="form-check-label" for="Checkme2">Check
+																		me</label>
+																</div>
+														</a></li>
+														<li><a class="dropdown-item" href="#">
+																<div class="form-check">
+																	<input class="form-check-input" type="checkbox"
+																		value="" id="Checkme3" /> <label
+																		class="form-check-label" for="Checkme3">Check
+																		me</label>
+																</div>
+														</a></li>
+
+													</ul>
+												</div>
+
+											</div>
+											<div class="col-md-4 d-flex align-items-end mt-0 ">
+												<select class="form-select"
+													aria-label="Default select example">
+													<option selected value="1">One</option>
+													<option value="2">Two</option>
+													<option value="3">Three</option>
+												</select>
+											</div>
+										</div>
+
+										<div class="row mt-3">
+											<div class="col-12 mt-0 text-center">
+												<div class="form-group">
+													<textarea placeholder="Any Salary Related Notes..." style=" resize: none;" class="form-control"
+														id="exampleFormControlTextarea1" rows="7"></textarea>
+												</div>
+											</div>
+										</div>
+
+
+										<hr class="bg bg-dark">
+										<div class="row">
+											<div class="col-12 mt-0 text-center">
+												<button data-bs-dismiss="modal" type="button"
+													class="btn btn-primary">Close</button>
+												<button type="button" class="btn btn-primary">Generate</button>
+											</div>
+										</div>
+
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- genmerate modal ends here -->
 
 				</div>
 				<div class="tab-pane " id="DeleiverySal">
@@ -3066,8 +3111,12 @@
             brd.innerHTML = "Delivery Salary";
         }
         
+    </script>
 
-
+	<script>
+	    $('#columnsListDropDown li').click(function(e){
+	        e.stopPropagation();
+	    })
     </script>
 </body>
 
