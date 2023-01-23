@@ -654,6 +654,7 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 													<td class="text-sm text-center"><%=emp.getEmpjoin()%></td>
 													<td class="text-center"><a href="#"
 														class="generateSalaraybtn"
+														data-emptel="<%=emp.getTel() %>"
 														data-empmail="<%=emp.getEmail()%>"
 														data-empname="<%=emp.getName()%>"
 														data-empid="<%=emp.getId()%>"> <span
@@ -945,7 +946,7 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 											<div class="col-12 mt-0 text-center">
 												<button data-bs-dismiss="modal" type="button"
 													class="btn btn-primary">Close</button>
-												<button type="button" class="btn btn-primary">Generate</button>
+												<button type="button" id="ModalGenerateSalBtn" class="btn btn-primary">Generate</button>
 											</div>
 										</div>
 
@@ -3085,6 +3086,7 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
     		$(this).attr("data-empid");
     		$(this).attr("data-empname");
     		$(this).attr("data-empmail");
+    		var tel = $(this).attr("data-emptel");
     		
     		//assigns the values to the pnut tags in the generate slip modal
     		$('#generateSlipsnames').val($(this).attr("data-empname"));
@@ -3097,9 +3099,13 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 				success : function(response) {
 					var oob = JSON.parse(response);
 					
-					if (oob.status == "valid") {
+					if (oob.status == "valid" && oob.value!=null) {
 						$('#generateSlipBankSelect').html(oob.value);
 						
+					}if(oob.value==""){
+						$('#generateSlipBankSelect').html("<option selected>Contact Empoyee "+tel+"</option>");
+						$("#generateSlipBankSelect").attr("disabled", true);
+						$("#ModalGenerateSalBtn").attr("disabled", true);
 					}
 				},
 				error : function() {
