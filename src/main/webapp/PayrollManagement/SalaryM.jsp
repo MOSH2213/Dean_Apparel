@@ -631,15 +631,31 @@
 													<td class="text-sm text-center">$1,321</td>
 													<td class="text-sm text-center">243598234</td>
 													<td class="text-sm text-center">0</td>
-													<td class="text-center"><a href="#"
-														data-bs-toggle="modal" data-bs-target="#GenerateSlip">
-															<span class="badge badge-warning badge-sm">
-																Generate Salary </span>
-													</a> <a href="#" data-bs-toggle="modal"
-														data-bs-target="#ViewSalarySlip"> <span
-															class="badge badge-success badge-sm"> View PaySlip
-														</span>
-													</a></td>
+													<td class="text-center">
+														<a href="#"
+															data-bs-toggle="modal" data-bs-target="#GenerateSlip">
+																<span class="badge badge-warning badge-sm">
+																	Generate Salary </span>
+														</a> 
+														
+														<!-- dropdown slipps -->
+														<a href="#" class="dropdown" id="viewSlipsItems"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false"> <span
+																class="badge badge-success badge-sm"> View PaySlip
+															</span>
+														</a>
+														<div class="dropdown-menu"	aria-labelledby="viewSlipsItems">
+																<a class="dropdown-item" href="#">Action</a> 
+																<a class="dropdown-item" href="#">Another action</a> 
+																<a class="dropdown-item" href="#">Something else here</a>
+														</div>
+															<!-- dropdown slipps ends-->
+															
+														<button data-bs-toggle="modal" class="d-none"
+															data-bs-target="#ViewSalarySlip">toogglemodal</button>
+														
+													</td>
 												</tr>
 												<tr>
 													<td>
@@ -655,15 +671,31 @@
 													<td class="text-sm text-center">$1,321</td>
 													<td class="text-sm text-center">243598234</td>
 													<td class="text-sm text-center">0</td>
-													<td class="text-center"><a href="#"
-														data-bs-toggle="modal" data-bs-target="#GenerateSlip">
-															<span class="badge badge-warning badge-sm">
-																Generate Salary </span>
-													</a> <a href="#" data-bs-toggle="modal"
-														data-bs-target="#ViewSalarySlip"> <span
-															class="badge badge-success badge-sm"> View PaySlip
-														</span>
-													</a></td>
+													<td class="text-center">
+														<a href="#"
+															data-bs-toggle="modal" data-bs-target="#GenerateSlip">
+																<span class="badge badge-warning badge-sm">
+																	Generate Salary </span>
+														</a> 
+														
+														<!-- dropdown slipps -->
+														<a href="#" class="dropdown" id="viewSlipsItems"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false"> <span
+																class="badge badge-success badge-sm"> View PaySlip
+															</span>
+														</a>
+														<div class="dropdown-menu"	aria-labelledby="viewSlipsItems">
+																<a class="dropdown-item" href="#">Action</a> 
+																<a class="dropdown-item" href="#">Another action</a> 
+																<a class="dropdown-item" href="#">Something else here</a>
+														</div>
+															<!-- dropdown slipps ends-->
+															
+														<button data-bs-toggle="modal" class="d-none"
+															data-bs-target="#ViewSalarySlip">toogglemodal</button>
+														
+													</td>
 												</tr>
 
 												<tr>
@@ -680,15 +712,31 @@
 													<td class="text-sm text-center">$1,321</td>
 													<td class="text-sm text-center">243598234</td>
 													<td class="text-sm text-center">0</td>
-													<td class="text-center"><a href="#"
-														data-bs-toggle="modal" data-bs-target="#GenerateSlip">
-															<span class="badge badge-warning badge-sm">
-																Generate Salary </span>
-													</a> <a href="#" data-bs-toggle="modal"
-														data-bs-target="#ViewSalarySlip"> <span
-															class="badge badge-success badge-sm"> View PaySlip
-														</span>
-													</a></td>
+													<td class="text-center">
+														<a href="#"
+															data-bs-toggle="modal" data-bs-target="#GenerateSlip">
+																<span class="badge badge-warning badge-sm">
+																	Generate Salary </span>
+														</a> 
+														
+														<!-- dropdown slipps -->
+														<a href="#" class="dropdown" id="viewSlipsItems"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false"> <span
+																class="badge badge-success badge-sm"> View PaySlip
+															</span>
+														</a>
+														<div class="dropdown-menu"	aria-labelledby="viewSlipsItems">
+																<a class="dropdown-item" href="#">Action</a> 
+																<a class="dropdown-item" href="#">Another action</a> 
+																<a class="dropdown-item" href="#">Something else here</a>
+														</div>
+															<!-- dropdown slipps ends-->
+															
+														<button data-bs-toggle="modal" class="d-none"
+															data-bs-target="#ViewSalarySlip">toogglemodal</button>
+														
+													</td>
 												</tr>
 												<tr>
 													<td>
@@ -704,15 +752,31 @@
 													<td class="text-sm text-center">$1,321</td>
 													<td class="text-sm text-center">243598234</td>
 													<td class="text-sm text-center">0</td>
-													<td class="text-center"><a href="#"
-														data-bs-toggle="modal" data-bs-target="#GenerateSlip">
-															<span class="badge badge-warning badge-sm">
-																Generate Salary </span>
-													</a> <a href="#" data-bs-toggle="modal"
-														data-bs-target="#ViewSalarySlip"> <span
-															class="badge badge-success badge-sm"> View PaySlip
-														</span>
-													</a></td>
+													<td class="text-center">
+														<a href="#"
+															data-bs-toggle="modal" data-bs-target="#GenerateSlip">
+																<span class="badge badge-warning badge-sm">
+																	Generate Salary </span>
+														</a> 
+														
+														<!-- dropdown slipps -->
+														<a href="#" class="dropdown" id="viewSlipsItems"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false"> <span
+																class="badge badge-success badge-sm"> View PaySlip
+															</span>
+														</a>
+														<div class="dropdown-menu"	aria-labelledby="viewSlipsItems">
+																<a class="dropdown-item" href="#">Action</a> 
+																<a class="dropdown-item" href="#">Another action</a> 
+																<a class="dropdown-item" href="#">Something else here</a>
+														</div>
+															<!-- dropdown slipps ends-->
+															
+														<button data-bs-toggle="modal" class="d-none"
+															data-bs-target="#ViewSalarySlip">toogglemodal</button>
+														
+													</td>
 												</tr>
 												<tr>
 													<td>
