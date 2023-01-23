@@ -728,15 +728,31 @@
 													<td class="text-sm text-center">$1,321</td>
 													<td class="text-sm text-center">243598234</td>
 													<td class="text-sm text-center">0</td>
-													<td class="text-center"><a href="#"
-														data-bs-toggle="modal" data-bs-target="#GenerateSlip">
-															<span class="badge badge-warning badge-sm">
-																Generate Salary </span>
-													</a> <a href="#" data-bs-toggle="modal"
-														data-bs-target="#ViewSalarySlip"> <span
-															class="badge badge-success badge-sm"> View PaySlip
-														</span>
-													</a></td>
+													<td class="text-center">
+														<a href="#"
+															data-bs-toggle="modal" data-bs-target="#GenerateSlip">
+																<span class="badge badge-warning badge-sm">
+																	Generate Salary </span>
+														</a> 
+														
+														<!-- dropdown slipps -->
+														<a href="#" class="dropdown" id="viewSlipsItems"
+																data-bs-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false"> <span
+																class="badge badge-success badge-sm"> View PaySlip
+															</span>
+														</a>
+														<div class="dropdown-menu"	aria-labelledby="viewSlipsItems">
+																<a class="dropdown-item" href="#">Action</a> 
+																<a class="dropdown-item" href="#">Another action</a> 
+																<a class="dropdown-item" href="#">Something else here</a>
+														</div>
+															<!-- dropdown slipps ends-->
+															
+														<button data-bs-toggle="modal" class="d-none"
+															data-bs-target="#ViewSalarySlip">toogglemodal</button>
+														
+													</td>
 												</tr>
 											</tbody>
 										</table>
@@ -908,7 +924,7 @@
 												</select>
 											</div>
 										</div>
-										
+
 										<div class="row mb-2">
 											<div class="col-md-4 d-flex align-items-end mt-0">
 												<div class="dropdown">
@@ -987,9 +1003,12 @@
 
 											</div>
 											<div class="col-md-4 d-flex align-items-end mt-0 ">
-												 <input style="color: #5E72E4; font-weight: 600; font-size: 15px; border:1px #5E72E4 solid" type="date" class="rounded p-1 bg bg-outline-secondary" name="SalaryDate">
+												<input
+													style="color: #5E72E4; font-weight: 600; font-size: 15px; border: 1px #5E72E4 solid"
+													type="date" class="rounded p-1 bg bg-outline-secondary"
+													name="SalaryDate">
 											</div>
-											
+
 										</div>
 
 										<div class="row mt-3">
@@ -3121,6 +3140,15 @@
     </script>
 
 	<script>
+		let todays = new Date();
+		let dd = String(todays.getDate()).padStart(2, '0');
+		let mm = String(todays.getMonth() + 1).padStart(2, '0'); //January is 0!
+		let yyyy = todays.getFullYear();
+		todays = yyyy + '-' + mm + '-' + dd;
+		
+		$("input[type=date]").attr("max", todays);
+		
+		
 		//for the checkboxes withour being destructed
 	    $('#columnsListDropDown li').click(function(e){
 	        e.stopPropagation();
