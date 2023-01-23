@@ -1,5 +1,20 @@
+<%@page import="apparels.DBcon.DbCon"%>
+<%@page import="apparels.DAO.SalaryMDao"%>
+<%@page import="java.util.*"%>
+<%@page import="apparels.Modal.Employee"%>
+<%@page import="java.time.format.*"%>
+<%@page import="java.text.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%
+SalaryMDao smd = new SalaryMDao(DbCon.getConnection());
+List<Employee> employee = smd.getAllEmployee();
+
+NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
+
+%>
+
 <!DOCTYPE html>
 <html lang="en" id="full">
 
@@ -617,207 +632,58 @@
 												</tr>
 											</thead>
 											<tbody>
+												<%
+												if (!employee.isEmpty()) {
+													for (Employee emp : employee) {
+														
+												%>
 												<tr>
 													<td>
 														<div class="d-flex">
 
-															<img class="w-10 ms-3"
-																src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/adidas-hoodie.jpg"
+															<img class="w-15 rounded ms-3"
+																src="../assets/img/Propics/employee/<%=emp.getPropic()%>"
 																alt="hoodie">
-															<h6 class="ms-3 my-auto">BKLGO Full Zip Hoodie</h6>
+															<h6 class="ms-3 my-auto text-capitalize"><%=emp.getName()%></h6>
 														</div>
 													</td>
-													<td class="text-sm text-center">Clothing</td>
-													<td class="text-sm text-center">$1,321</td>
-													<td class="text-sm text-center">243598234</td>
-													<td class="text-sm text-center">0</td>
-													<td class="text-center">
-														<a href="#"
-															data-bs-toggle="modal" data-bs-target="#GenerateSlip">
-																<span class="badge badge-warning badge-sm">
-																	Generate Salary </span>
-														</a> 
-														
-														<!-- dropdown slipps -->
-														<a href="#" class="dropdown" id="viewSlipsItems"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false"> <span
-																class="badge badge-success badge-sm"> View PaySlip
-															</span>
-														</a>
-														<div class="dropdown-menu"	aria-labelledby="viewSlipsItems">
-																<a class="dropdown-item" href="#">Action</a> 
-																<a class="dropdown-item" href="#">Another action</a> 
-																<a class="dropdown-item" href="#">Something else here</a>
-														</div>
-															<!-- dropdown slipps ends-->
-															
-														<button data-bs-toggle="modal" class="d-none"
-															data-bs-target="#ViewSalarySlip">toogglemodal</button>
-														
+													<td class="text-sm text-center"><%=emp.getEmail()%></td>
+													<td class="text-sm text-center"><%=emp.getDepartment()%></td>
+													<td class="text-sm text-center">Rs <%=nf.format(emp.getBasicsal())%>.00
 													</td>
+													<td class="text-sm text-center"><%=emp.getEmpjoin()%></td>
+													<td class="text-center"><a href="#"
+														class="generateSalaraybtn"
+														data-empmail="<%=emp.getEmail()%>"
+														data-empname="<%=emp.getName()%>"
+														data-empid="<%=emp.getId()%>"> <span
+															class="badge badge-warning badge-sm"> Generate
+																Salary </span>
+													</a> <!-- dropdown slipps --> <a href="#" class="dropdown"
+														id="viewSlipsItems" data-bs-toggle="dropdown"
+														aria-haspopup="true" aria-expanded="false"> <span
+															class="badge badge-success badge-sm"> View PaySlip
+														</span>
+													</a>
+														<div class="dropdown-menu"
+															aria-labelledby="viewSlipsItems">
+															<a class="dropdown-item" href="#">Action</a> <a
+																class="dropdown-item" href="#">Another action</a> <a
+																class="dropdown-item" href="#">Something else here</a>
+														</div> <!-- dropdown slipps ends--></td>
 												</tr>
-												<tr>
-													<td>
-														<div class="d-flex">
-
-															<img class="w-10 ms-3"
-																src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/adidas-hoodie.jpg"
-																alt="hoodie">
-															<h6 class="ms-3 my-auto">BKLGO Full Zip Hoodie</h6>
-														</div>
-													</td>
-													<td class="text-sm text-center">Clothing</td>
-													<td class="text-sm text-center">$1,321</td>
-													<td class="text-sm text-center">243598234</td>
-													<td class="text-sm text-center">0</td>
-													<td class="text-center">
-														<a href="#"
-															data-bs-toggle="modal" data-bs-target="#GenerateSlip">
-																<span class="badge badge-warning badge-sm">
-																	Generate Salary </span>
-														</a> 
-														
-														<!-- dropdown slipps -->
-														<a href="#" class="dropdown" id="viewSlipsItems"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false"> <span
-																class="badge badge-success badge-sm"> View PaySlip
-															</span>
-														</a>
-														<div class="dropdown-menu"	aria-labelledby="viewSlipsItems">
-																<a class="dropdown-item" href="#">Action</a> 
-																<a class="dropdown-item" href="#">Another action</a> 
-																<a class="dropdown-item" href="#">Something else here</a>
-														</div>
-															<!-- dropdown slipps ends-->
-															
-														<button data-bs-toggle="modal" class="d-none"
-															data-bs-target="#ViewSalarySlip">toogglemodal</button>
-														
-													</td>
-												</tr>
-
-												<tr>
-													<td>
-														<div class="d-flex">
-
-															<img class="w-10 ms-3"
-																src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/adidas-hoodie.jpg"
-																alt="hoodie">
-															<h6 class="ms-3 my-auto">BKLGO Full Zip Hoodie</h6>
-														</div>
-													</td>
-													<td class="text-sm text-center">Clothing</td>
-													<td class="text-sm text-center">$1,321</td>
-													<td class="text-sm text-center">243598234</td>
-													<td class="text-sm text-center">0</td>
-													<td class="text-center">
-														<a href="#"
-															data-bs-toggle="modal" data-bs-target="#GenerateSlip">
-																<span class="badge badge-warning badge-sm">
-																	Generate Salary </span>
-														</a> 
-														
-														<!-- dropdown slipps -->
-														<a href="#" class="dropdown" id="viewSlipsItems"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false"> <span
-																class="badge badge-success badge-sm"> View PaySlip
-															</span>
-														</a>
-														<div class="dropdown-menu"	aria-labelledby="viewSlipsItems">
-																<a class="dropdown-item" href="#">Action</a> 
-																<a class="dropdown-item" href="#">Another action</a> 
-																<a class="dropdown-item" href="#">Something else here</a>
-														</div>
-															<!-- dropdown slipps ends-->
-															
-														<button data-bs-toggle="modal" class="d-none"
-															data-bs-target="#ViewSalarySlip">toogglemodal</button>
-														
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<div class="d-flex">
-
-															<img class="w-10 ms-3"
-																src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/adidas-hoodie.jpg"
-																alt="hoodie">
-															<h6 class="ms-3 my-auto">BKLGO Full Zip Hoodie</h6>
-														</div>
-													</td>
-													<td class="text-sm text-center">Clothing</td>
-													<td class="text-sm text-center">$1,321</td>
-													<td class="text-sm text-center">243598234</td>
-													<td class="text-sm text-center">0</td>
-													<td class="text-center">
-														<a href="#"
-															data-bs-toggle="modal" data-bs-target="#GenerateSlip">
-																<span class="badge badge-warning badge-sm">
-																	Generate Salary </span>
-														</a> 
-														
-														<!-- dropdown slipps -->
-														<a href="#" class="dropdown" id="viewSlipsItems"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false"> <span
-																class="badge badge-success badge-sm"> View PaySlip
-															</span>
-														</a>
-														<div class="dropdown-menu"	aria-labelledby="viewSlipsItems">
-																<a class="dropdown-item" href="#">Action</a> 
-																<a class="dropdown-item" href="#">Another action</a> 
-																<a class="dropdown-item" href="#">Something else here</a>
-														</div>
-															<!-- dropdown slipps ends-->
-															
-														<button data-bs-toggle="modal" class="d-none"
-															data-bs-target="#ViewSalarySlip">toogglemodal</button>
-														
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<div class="d-flex">
-
-															<img class="w-10 ms-3"
-																src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/adidas-hoodie.jpg"
-																alt="hoodie">
-															<h6 class="ms-3 my-auto">BKLGO Full Zip Hoodie</h6>
-														</div>
-													</td>
-													<td class="text-sm text-center">Clothing</td>
-													<td class="text-sm text-center">$1,321</td>
-													<td class="text-sm text-center">243598234</td>
-													<td class="text-sm text-center">0</td>
-													<td class="text-center">
-														<a href="#"
-															data-bs-toggle="modal" data-bs-target="#GenerateSlip">
-																<span class="badge badge-warning badge-sm">
-																	Generate Salary </span>
-														</a> 
-														
-														<!-- dropdown slipps -->
-														<a href="#" class="dropdown" id="viewSlipsItems"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false"> <span
-																class="badge badge-success badge-sm"> View PaySlip
-															</span>
-														</a>
-														<div class="dropdown-menu"	aria-labelledby="viewSlipsItems">
-																<a class="dropdown-item" href="#">Action</a> 
-																<a class="dropdown-item" href="#">Another action</a> 
-																<a class="dropdown-item" href="#">Something else here</a>
-														</div>
-															<!-- dropdown slipps ends-->
-															
-														<button data-bs-toggle="modal" class="d-none"
-															data-bs-target="#ViewSalarySlip">toogglemodal</button>
-														
-													</td>
-												</tr>
+												<%
+												}
+												}
+												%>
+												<!-- the below hidden laaunches the generate salary modal -->
+												<button data-bs-toggle="modal" class="d-none"
+													id="fortheViewSlip" data-bs-target="#ViewSalarySlip">toogglemodal</button>
+												</td>
+												<button class="d-none" data-bs-toggle="modal"
+													id="forthegenerateSlip" data-bs-target="#GenerateSlip">Generate
+													Salary</button>
+												<!-- ends here -->
 											</tbody>
 										</table>
 									</div>
@@ -962,9 +828,10 @@
 										<div class="row">
 											<div class="col-md-6">
 												<div class="mb-3">
-													<label for="exampleInputEmail1" class="form-label">Email
-														address</label> <input type="email" class="form-control"
-														id="exampleInputEmail1" aria-describedby="emailHelp">
+													<label for="exampleInputEmail1" class="form-label">Name
+													</label> <input type="text" disabled class="form-control"
+														id="generateSlipemails" aria-describedby="emailHelp"
+														value="">
 
 												</div>
 											</div>
@@ -972,7 +839,8 @@
 												<div class="mb-3">
 													<label for="exampleInputEmail1" class="form-label">Email
 														address</label> <input type="email" class="form-control"
-														id="exampleInputEmail1" aria-describedby="emailHelp">
+														id="generateSlipsnames" disabled
+														aria-describedby="emailHelp">
 
 												</div>
 											</div>
@@ -980,11 +848,10 @@
 
 										<div class="row">
 											<div class="col-12 d-flex align-items-end mt-0 mb-3">
-												<select class="form-select"
+												<select class="form-select" id="generateSlipBankSelect"
 													aria-label="Default select example">
-													<option selected value="1">One</option>
-													<option value="2">Two</option>
-													<option value="3">Three</option>
+													<option value="">entry.getValue</option>
+												
 												</select>
 											</div>
 										</div>
@@ -997,33 +864,27 @@
 														type="button" id="dropdownMenuButton"
 														data-bs-toggle="dropdown" aria-expanded="false">
 														Choose Allowance</button>
-													<ul class="dropdown-menu " id="columnsListDropDown"
+													<ul class="dropdown-menu pb-0" id="columnsListDropDown"
 														aria-labelledby="dropdownMenuButton">
-														<li><a class="dropdown-item" href="#">
+														<%
+														HashMap<Integer, String> bank = new HashMap<Integer, String>();
+														bank = smd.getAllAllowances();
+														for (Map.Entry<Integer, String> entry : bank.entrySet()) {
+														%>	
+														<li>
+															<a class="pb-0 py-0 px-2 mb-0 dropdown-item" href="#">
 																<div class="form-check">
 																	<input class="form-check-input" type="checkbox"
-																		value="" id="Checkme1" /> <label
-																		class="form-check-label" for="Checkme1">Check
-																		me</label>
+																		value="<%=entry.getKey() %>" id="Checkme<%=entry.getValue() %>" /> 
+																	<label
+																		class="form-check-label" for="Checkme<%=entry.getValue() %>"><%=entry.getValue() %></label>
 																</div>
-														</a></li>
-														<li><a class="dropdown-item" href="#">
-																<div class="form-check">
-																	<input class="form-check-input" type="checkbox"
-																		value="" id="Checkme2" checked /> <label
-																		class="form-check-label" for="Checkme2">Check
-																		me</label>
-																</div>
-														</a></li>
-														<li><a class="dropdown-item" href="#">
-																<div class="form-check">
-																	<input class="form-check-input" type="checkbox"
-																		value="" id="Checkme3" /> <label
-																		class="form-check-label" for="Checkme3">Check
-																		me</label>
-																</div>
-														</a></li>
-
+															</a>
+														</li>
+														<%	
+														}
+														%>
+														
 													</ul>
 												</div>
 
@@ -1035,33 +896,26 @@
 														type="button" id="dropdownMenuButton"
 														data-bs-toggle="dropdown" aria-expanded="false">
 														Choose Deductions</button>
-													<ul class="dropdown-menu " id="columnsListDropDown2"
+													<ul class="dropdown-menu pb-0" id="columnsListDropDown2"
 														aria-labelledby="dropdownMenuButton">
-														<li><a class="dropdown-item" href="#">
+														<%
+														HashMap<Integer, String> banks = new HashMap<Integer, String>();
+														banks = smd.getAllDeductions();
+														for (Map.Entry<Integer, String> entry : banks.entrySet()) {
+														%>	
+														<li>
+															<a class="pb-0 py-0 px-2 mb-0 dropdown-item" href="#">
 																<div class="form-check">
 																	<input class="form-check-input" type="checkbox"
-																		value="" id="Checkme1" /> <label
-																		class="form-check-label" for="Checkme1">Check
-																		me</label>
+																		value="<%=entry.getKey() %>" id="Checkme<%=entry.getValue() %>" /> 
+																	<label
+																		class="form-check-label" for="Checkme<%=entry.getValue() %>"><%=entry.getValue() %></label>
 																</div>
-														</a></li>
-														<li><a class="dropdown-item" href="#">
-																<div class="form-check">
-																	<input class="form-check-input" type="checkbox"
-																		value="" id="Checkme2" checked /> <label
-																		class="form-check-label" for="Checkme2">Check
-																		me</label>
-																</div>
-														</a></li>
-														<li><a class="dropdown-item" href="#">
-																<div class="form-check">
-																	<input class="form-check-input" type="checkbox"
-																		value="" id="Checkme3" /> <label
-																		class="form-check-label" for="Checkme3">Check
-																		me</label>
-																</div>
-														</a></li>
-
+															</a>
+														</li>
+														<%	
+														}
+														%>
 													</ul>
 												</div>
 
@@ -1069,7 +923,7 @@
 											<div class="col-md-4 d-flex align-items-end mt-0 ">
 												<input
 													style="color: #5E72E4; font-weight: 600; font-size: 15px; border: 1px #5E72E4 solid"
-													type="date" class="rounded p-1 bg bg-outline-secondary"
+													type="month" class="rounded p-1 bg bg-outline-secondary"
 													name="SalaryDate">
 											</div>
 
@@ -3205,12 +3059,12 @@
 
 	<script>
 		let todays = new Date();
-		let dd = String(todays.getDate()).padStart(2, '0');
+		//let dd = String(todays.getDate()).padStart(2, '0');
 		let mm = String(todays.getMonth() + 1).padStart(2, '0'); //January is 0!
 		let yyyy = todays.getFullYear();
-		todays = yyyy + '-' + mm + '-' + dd;
+		todays = yyyy + '-' + mm;
 		
-		$("input[type=date]").attr("max", todays);
+		$("input[type=month]").attr("max", todays);
 		
 		
 		//for the checkboxes withour being destructed
@@ -3220,6 +3074,44 @@
 	     $('#columnsListDropDown2 li').click(function(e){
 	        e.stopPropagation();
 	    })
+    </script>
+	<!-- ajax scripts starts here -->
+	<script>
+    $(document).ready(function() {
+    	$(document).on('click','.generateSalaraybtn',function(e){
+    		
+    		
+    		//takes tehe specific values of the employee
+    		$(this).attr("data-empid");
+    		$(this).attr("data-empname");
+    		$(this).attr("data-empmail");
+    		
+    		//assigns the values to the pnut tags in the generate slip modal
+    		$('#generateSlipsnames').val($(this).attr("data-empname"));
+    		$('#generateSlipemails').val($(this).attr("data-empmail"));
+    		
+    		$.ajax({
+				type : 'POST',
+				url : '../SalaryServlet',
+				data : "empmail="+$(this).attr("data-empmail"),
+				success : function(response) {
+					var oob = JSON.parse(response);
+					
+					if (oob.status == "valid") {
+						$('#generateSlipBankSelect').html(oob.value);
+						
+					}
+				},
+				error : function() {
+					alert("error");
+				}
+
+			})
+    		//launches the modal with jquery
+    		$("#forthegenerateSlip").click();
+    		
+    	})
+    })
     </script>
 </body>
 
