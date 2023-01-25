@@ -3083,13 +3083,14 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 	<script>$(document).ready(function() {
 		   $(document).on('click', '.generateSalaraybtn', function(e) {
 			      //takes tehe specific values of the employee
-			      $(this).attr("data-empid");
-			      $(this).attr("data-empname");
-			      $(this).attr("data-empmail");
+			      var empids = $(this).attr("data-empid");
+			      var empnames = $(this).attr("data-empname");
+			      var empmails = $(this).attr("data-empmail");
 			      var tel = $(this).attr("data-emptel");
 			      //assigns the values to the pnut tags in the generate slip modal
 			      $('#generateSlipsnames').val($(this).attr("data-empname"));
 			      $('#generateSlipemails').val($(this).attr("data-empmail"));
+			      
 			      $.ajax({
 			         type: 'POST',
 			         url: '../SalaryServlet',
@@ -3123,21 +3124,55 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 			                           if (!value) {
 			                              return 'You need to write something!'
 			                           } else {
-			                              const Toast = Swal.mixin({
-			                                 toast: true,
-			                                 position: 'top-end',
-			                                 showConfirmButton: false,
-			                                 timer: 1000,
-			                                 timerProgressBar: true,
-			                                 didOpen: (toast) => {
-			                                    toast.addEventListener('mouseenter', Swal.stopTimer)
-			                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-			                                 }
-			                              })
-			                              Toast.fire({
-			                                 icon: 'success',
-			                                 title: 'Notification Send'//user entered value taken by *value*
-			                              })
+			                        	   $.ajax({
+			           						type : 'POST',
+			           						url : '../SalaryServlet',
+			           						data : "empmail=" +empmails + "&for=insertnots&message="+value,
+			           						success : function(response) {
+			           							var oob = JSON.parse(response);
+			           							if (oob.status == "added") {
+			           								
+			           								const Toast = Swal.mixin({
+			           									  toast: true,
+			           									  position: 'top-end',
+			           									  showConfirmButton: false,
+			           									  timer: 2000,
+			           									  timerProgressBar: true,
+			           									  didOpen: (toast) => {
+			           									    toast.addEventListener('mouseenter', Swal.stopTimer)
+			           									    toast.addEventListener('mouseleave', Swal.resumeTimer)
+			           									  }
+			           									})
+
+			           									Toast.fire({
+			           									  icon: 'success',
+			           									  title: 'Notification Sent'
+			           									})
+			           							}
+			           							if (oob.status == "notadded") {
+			           								const Toast = Swal.mixin({
+			           									  toast: true,
+			           									  position: 'top-end',
+			           									  showConfirmButton: false,
+			           									  timer: 2000,
+			           									  timerProgressBar: true,
+			           									  didOpen: (toast) => {
+			           									    toast.addEventListener('mouseenter', Swal.stopTimer)
+			           									    toast.addEventListener('mouseleave', Swal.resumeTimer)
+			           									  }
+			           									})
+
+			           									Toast.fire({
+			           									  icon: 'error',
+			           									  title: 'Error Sending'
+			           									})
+			           							}
+			           						},
+			           						error : function() {
+			           							alert("error");
+			           						}
+
+			           					})
 			                           }
 			                        }
 			                     })

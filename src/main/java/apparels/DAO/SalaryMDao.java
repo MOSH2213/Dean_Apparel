@@ -151,4 +151,25 @@ public class SalaryMDao {
 	}
 	//ends here
 	
+	//inserting into the notifications table
+	public int EmpNotification(String message, String bythe, String tothe, String role) {
+		int result = 0;
+		try {
+			query = "INSERT INTO notification (message,bythe,tothe,role) VALUES (?,?,?,?)";
+			pst = this.con.prepareStatement(query);
+			
+			pst.setString(1, message);
+			pst.setString(2, bythe);
+			pst.setString(3, tothe);
+			pst.setString(4, role);
+			
+			result = pst.executeUpdate();
+			System.out.println(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	//ends here
+	
 }
