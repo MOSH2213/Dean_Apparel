@@ -641,9 +641,10 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 													<td>
 														<div class="d-flex">
 
-															<img class="w-15 rounded ms-3"
+															<img class="w-15 rounded ms-3" style=" cursor: pointer;" 
+																data-ImgOfSweet="../assets/img/Propics/employee/<%=emp.getPropic()%>"
 																src="../assets/img/Propics/employee/<%=emp.getPropic()%>"
-																alt="hoodie">
+																alt="hoodie" >
 															<h6 class="ms-3 my-auto text-capitalize"><%=emp.getName()%></h6>
 														</div>
 													</td>
@@ -3026,6 +3027,8 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 
 	<!-- barcode js -->
 	<script src="../assets/js/plugins/jsBarcode_min.js"></script>
+	<!-- sweetalert js -->
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script>
 
         function generateRand() {
@@ -3099,13 +3102,34 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 				success : function(response) {
 					var oob = JSON.parse(response);
 					
-					if (oob.status == "valid" && oob.value!=null) {
+					if (oob.status == "valid") {
 						$('#generateSlipBankSelect').html(oob.value);
 						
-					}if(oob.value==""){
-						$('#generateSlipBankSelect').html("<option selected>Contact Empoyee "+tel+"</option>");
-						$("#generateSlipBankSelect").attr("disabled", true);
-						$("#ModalGenerateSalBtn").attr("disabled", true);
+						//launches the modal with jquery
+			    		$("#forthegenerateSlip").click();
+						
+					}else if(oob.status == "invalid"){
+						//$('#generateSlipBankSelect').html("<option selected>Contact Empoyee "+tel+"</option>");
+						
+						
+						const Toast = Swal.mixin({
+							  toast: true,
+							  position: 'top-end',
+							  showConfirmButton: false,
+							  timer: 1000,
+							  timerProgressBar: true,
+							  didOpen: (toast) => {
+							    toast.addEventListener('mouseenter', Swal.stopTimer)
+							    toast.addEventListener('mouseleave', Swal.resumeTimer)
+							  }
+							})
+
+							Toast.fire({
+							  icon: 'error',
+							  title: 'Bank Account Not Found'
+							})
+							
+						
 					}
 				},
 				error : function() {
@@ -3113,8 +3137,25 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 				}
 
 			})
-    		//launches the modal with jquery
-    		$("#forthegenerateSlip").click();
+    		
+    		
+    	})
+    	$(document).on('click','img',function(e){
+    		var srcs = $(this).attr("data-ImgOfSweet");
+    		console.log(srcs);
+    		if(srcs!=null){
+    			Swal.fire({
+    				background:'transparent',
+        			showCancelButton: false, // There won't be any cancel button
+        			showConfirmButton: false, // There won't be any confirm button
+        			imageUrl: srcs,
+        			imageWidth: 400,
+        			imageHeight: 400,
+        			imageAlt: 'Custom image',
+        			 
+        		})
+    		}
+    		
     		
     	})
     })

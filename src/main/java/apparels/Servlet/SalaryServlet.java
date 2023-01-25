@@ -44,9 +44,16 @@ public class SalaryServlet extends HttpServlet {
 			for (Entry<Integer, String> entry : banks.entrySet()) {
 				html.append("<option value="+entry.getKey()+">"+entry.getValue()+"</option>");
 			}
-			obj.put("value", html.toString());
-			obj.put("status", "valid");
-			out.print(obj);
+			if(html.toString().equals("")) {
+				obj.put("value", "");
+				obj.put("status", "invalid");
+				out.print(obj);
+			}else if(!html.toString().equals("")) {
+				obj.put("value", html.toString());
+				obj.put("status", "valid");
+				out.print(obj);
+			}
+			
 
 		} catch (Exception e) {
 			// TODO: handle exception
