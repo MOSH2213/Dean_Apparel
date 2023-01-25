@@ -172,4 +172,26 @@ public class SalaryMDao {
 	}
 	//ends here
 	
+	//selecting the notifications that are not seen by employee
+	public int[] GetUnSeenNotifications(String email) {
+		int[] id = {0,0};
+		try {
+			query = "SELECT DATEDIFF(CURDATE(), date) AS days,id FROM notification WHERE seen=0 and tothe=?";
+
+			pst = this.con.prepareStatement(query);
+			pst.setString(1, email);
+			rs = pst.executeQuery();
+			
+			while (rs.next()) {
+				id[0] = rs.getInt("id");
+				id[1] = rs.getInt("days");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return id;
+
+	}
+	//ends here
+	
 }

@@ -3115,7 +3115,7 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 			                  if (result.isConfirmed) {
 			                     const {
 			                        value: ipAddress
-			                     } = Swal.fire({
+			                     	} = Swal.fire({
 			                        title: 'Leave Message To Notify Employee',
 			                        input: 'textarea',
 			                        showCancelButton: true,
@@ -3130,6 +3130,24 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 			           						data : "empmail=" +empmails + "&for=insertnots&message="+value,
 			           						success : function(response) {
 			           							var oob = JSON.parse(response);
+												if (oob.status == "exist") {
+			           								const Toast = Swal.mixin({
+			           									  toast: true,
+			           									  position: 'top-end',
+			           									  showConfirmButton: false,
+			           									  timer: 2000,
+			           									  timerProgressBar: true,
+			           									  didOpen: (toast) => {
+			           									    toast.addEventListener('mouseenter', Swal.stopTimer)
+			           									    toast.addEventListener('mouseleave', Swal.resumeTimer)
+			           									  }
+			           									})
+
+			           									Toast.fire({
+			           									  icon: 'warning',
+			           									  title: 'Notification Sent '+oob.date+" Days Ago"
+			           									})
+			           							}
 			           							if (oob.status == "added") {
 			           								
 			           								const Toast = Swal.mixin({

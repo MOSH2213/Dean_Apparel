@@ -46,19 +46,27 @@ public class SalaryServlet extends HttpServlet {
 			System.out.println(empmail+" "+fordb+" "+message);
 			
 			if(empmail!=null && fordb!=null && message!=null) {
-				int result=0;
-				String role="employee";
-				
-				result = sDao.EmpNotification(message, adminmail, empmail, role);
-				if(result>0) {
-					
-					obj.put("status", "added");
+				int returns[] = {0,0};
+				returns = sDao.GetUnSeenNotifications(empmail);
+				if(returns[0]>0) {
+					obj.put("date", returns[1]);
+					obj.put("status", "exist");
 					out.print(obj);
-				}else if(result<=0) {
+				}else if(returns[0]<=0) {
+					int result=0;
+					String role="employee";
 					
-					obj.put("status", "notadded");
-					out.print(obj);
+					result = sDao.EmpNotification(message, adminmail, empmail, role);
+					if(result>0) {
+						obj.put("status", "added");
+						out.print(obj);
+					}else if(result<=0) {
+						
+						obj.put("status", "notadded");
+						out.print(obj);
+					}
 				}
+				
 				
 			}else if(empmail!=null) {
 				
