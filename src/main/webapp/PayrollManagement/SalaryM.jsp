@@ -3110,25 +3110,34 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 						
 					}else if(oob.status == "invalid"){
 						//$('#generateSlipBankSelect').html("<option selected>Contact Empoyee "+tel+"</option>");
-						
-						
-						const Toast = Swal.mixin({
-							  toast: true,
-							  position: 'top-end',
-							  showConfirmButton: false,
-							  timer: 1000,
-							  timerProgressBar: true,
-							  didOpen: (toast) => {
-							    toast.addEventListener('mouseenter', Swal.stopTimer)
-							    toast.addEventListener('mouseleave', Swal.resumeTimer)
-							  }
-							})
+						Swal.fire({
+						  title: 'Funding Error',
+						  text: "Funding Source Not Added By Employee",
+						  icon: 'warning',
+						  showCancelButton: true,
+						  confirmButtonColor: '#3085d6',
+						  cancelButtonColor: '#d33',
+						  confirmButtonText: 'Notify'
+						}).then((result) => {
+						  if (result.isConfirmed) {
+							  const Toast = Swal.mixin({
+								  toast: true,
+								  position: 'top-end',
+								  showConfirmButton: false,
+								  timer: 1000,
+								  timerProgressBar: true,
+								  didOpen: (toast) => {
+								    toast.addEventListener('mouseenter', Swal.stopTimer)
+								    toast.addEventListener('mouseleave', Swal.resumeTimer)
+								  }
+								})
 
-							Toast.fire({
-							  icon: 'error',
-							  title: 'Bank Account Not Found'
-							})
-							
+								Toast.fire({
+								  icon: 'success',
+								  title: 'Notification Send'
+								})
+						  }
+						})
 						
 					}
 				},
