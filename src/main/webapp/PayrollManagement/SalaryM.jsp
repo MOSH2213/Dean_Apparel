@@ -3080,95 +3080,93 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 	    })
     </script>
 	<!-- ajax scripts starts here -->
-	<script>
-    $(document).ready(function() {
-    	$(document).on('click','.generateSalaraybtn',function(e){
-    		
-    		
-    		//takes tehe specific values of the employee
-    		$(this).attr("data-empid");
-    		$(this).attr("data-empname");
-    		$(this).attr("data-empmail");
-    		var tel = $(this).attr("data-emptel");
-    		
-    		//assigns the values to the pnut tags in the generate slip modal
-    		$('#generateSlipsnames').val($(this).attr("data-empname"));
-    		$('#generateSlipemails').val($(this).attr("data-empmail"));
-    		
-    		$.ajax({
-				type : 'POST',
-				url : '../SalaryServlet',
-				data : "empmail="+$(this).attr("data-empmail"),
-				success : function(response) {
-					var oob = JSON.parse(response);
-					
-					if (oob.status == "valid") {
-						$('#generateSlipBankSelect').html(oob.value);
-						
-						//launches the modal with jquery
-			    		$("#forthegenerateSlip").click();
-						
-					}else if(oob.status == "invalid"){
-						//$('#generateSlipBankSelect').html("<option selected>Contact Empoyee "+tel+"</option>");
-						Swal.fire({
-						  title: 'Funding Error',
-						  text: "Funding Source Not Added By Employee",
-						  icon: 'warning',
-						  showCancelButton: true,
-						  confirmButtonColor: '#3085d6',
-						  cancelButtonColor: '#d33',
-						  confirmButtonText: 'Notify'
-						}).then((result) => {
-						  if (result.isConfirmed) {
-							  const Toast = Swal.mixin({
-								  toast: true,
-								  position: 'top-end',
-								  showConfirmButton: false,
-								  timer: 1000,
-								  timerProgressBar: true,
-								  didOpen: (toast) => {
-								    toast.addEventListener('mouseenter', Swal.stopTimer)
-								    toast.addEventListener('mouseleave', Swal.resumeTimer)
-								  }
-								})
-
-								Toast.fire({
-								  icon: 'success',
-								  title: 'Notification Send'
-								})
-						  }
-						})
-						
-					}
-				},
-				error : function() {
-					alert("error");
-				}
-
+	<script>$(document).ready(function() {
+		   $(document).on('click', '.generateSalaraybtn', function(e) {
+			      //takes tehe specific values of the employee
+			      $(this).attr("data-empid");
+			      $(this).attr("data-empname");
+			      $(this).attr("data-empmail");
+			      var tel = $(this).attr("data-emptel");
+			      //assigns the values to the pnut tags in the generate slip modal
+			      $('#generateSlipsnames').val($(this).attr("data-empname"));
+			      $('#generateSlipemails').val($(this).attr("data-empmail"));
+			      $.ajax({
+			         type: 'POST',
+			         url: '../SalaryServlet',
+			         data: "empmail=" + $(this).attr("data-empmail"),
+			         success: function(response) {
+			            var oob = JSON.parse(response);
+			            if (oob.status == "valid") {
+			               $('#generateSlipBankSelect').html(oob.value);
+			               //launches the modal with jquery
+			               $("#forthegenerateSlip").click();
+			            } else if (oob.status == "invalid") {
+			               //$('#generateSlipBankSelect').html("<option selected>Contact Empoyee "+tel+"</option>");
+			               Swal.fire({
+			                  title: 'Funding Error',
+			                  text: "Funding Source Not Added By Employee",
+			                  icon: 'warning',
+			                  showCancelButton: true,
+			                  confirmButtonColor: '#3085d6',
+			                  cancelButtonColor: '#d33',
+			                  confirmButtonText: 'Notify'
+			               }).then((result) => {
+			                  if (result.isConfirmed) {
+			                     const {
+			                        value: ipAddress
+			                     } = Swal.fire({
+			                        title: 'Leave Message To Notify Employee',
+			                        input: 'textarea',
+			                        showCancelButton: true,
+			                        inputPlaceholder:"Your message goes here......",
+			                        inputValidator: (value) => {
+			                           if (!value) {
+			                              return 'You need to write something!'
+			                           } else {
+			                              const Toast = Swal.mixin({
+			                                 toast: true,
+			                                 position: 'top-end',
+			                                 showConfirmButton: false,
+			                                 timer: 1000,
+			                                 timerProgressBar: true,
+			                                 didOpen: (toast) => {
+			                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+			                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+			                                 }
+			                              })
+			                              Toast.fire({
+			                                 icon: 'success',
+			                                 title: 'Notification Send'//user entered value taken by *value*
+			                              })
+			                           }
+			                        }
+			                     })
+			                  }
+			               })
+			            }
+			         },
+			         error: function() {
+			            alert("error");
+			         }
+			      })
+			   })
+			   $(document).on('click', 'img', function(e) {
+			      var srcs = $(this).attr("data-ImgOfSweet");
+			      console.log(srcs);
+			      if (srcs != null) {
+			         Swal.fire({
+			            background: 'transparent',
+			            showCancelButton: false, // There won't be any cancel button
+			            showConfirmButton: false, // There won't be any confirm button
+			            imageUrl: srcs,
+			            imageWidth: 400,
+			            imageHeight: 400,
+			            imageAlt: 'Custom image',
+			         })
+			      }
+			   })
 			})
-    		
-    		
-    	})
-    	$(document).on('click','img',function(e){
-    		var srcs = $(this).attr("data-ImgOfSweet");
-    		console.log(srcs);
-    		if(srcs!=null){
-    			Swal.fire({
-    				background:'transparent',
-        			showCancelButton: false, // There won't be any cancel button
-        			showConfirmButton: false, // There won't be any confirm button
-        			imageUrl: srcs,
-        			imageWidth: 400,
-        			imageHeight: 400,
-        			imageAlt: 'Custom image',
-        			 
-        		})
-    		}
-    		
-    		
-    	})
-    })
-    </script>
+	</script>
 </body>
 
 </html>
