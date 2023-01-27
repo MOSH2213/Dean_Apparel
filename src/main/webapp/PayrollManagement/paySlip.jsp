@@ -13,7 +13,7 @@
 	<div class="col-md-12">
 		<div class="card" id="pdf">
 			<div class="card-body">
-				<h4 class="payslip-title text-center mb-4 text-uppercase">Payslip
+				<h4 class="payslip-title text-center mb-1 text-uppercase">Payslip
 					for the month of <%=payheads.get(5) %></h4>
 				<div class="row">
 					<div class="col-sm-6 mb-3">
