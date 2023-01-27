@@ -18,15 +18,15 @@ public class SalaryMDao {
 	private ResultSet rs;
 
 	java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
-	
+
 	public SalaryMDao(Connection con) {
 		this.con = con;
 	}
-	
-	//selecting all of the employees 
+
+	// selecting all of the employees
 	public List<Employee> getAllEmployee() {
 		List<Employee> crd = new ArrayList<Employee>();
-		
+
 		try {
 			query = "SELECT * FROM employee WHERE actstatus='active'";
 
@@ -34,7 +34,7 @@ public class SalaryMDao {
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				Employee cd = new Employee();
-				
+
 				cd.setId(rs.getInt("emp_id"));
 				cd.setName(rs.getString("emp_name"));
 				cd.setDob(rs.getString("emp_DOB"));
@@ -52,9 +52,9 @@ public class SalaryMDao {
 				cd.setEmpjoin(rs.getString("emp_join"));
 				cd.setEmpresign(rs.getString("emp_resign"));
 				cd.setActstatus(rs.getString("actstatus"));
-				
+
 				crd.add(cd);
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -62,8 +62,8 @@ public class SalaryMDao {
 		return crd;
 
 	}
-	
-	//Hashmap for the bank account of the employee
+
+	// Hashmap for the bank account of the employee
 	public HashMap<Integer, String> getALLBankAccounts(String email) {
 		HashMap<Integer, String> district = new HashMap<Integer, String>();
 
@@ -80,20 +80,55 @@ public class SalaryMDao {
 				bname = rs.getString("bank");
 				bacct = rs.getString("acno");
 				bid = rs.getInt("id");
-				
-				district.put(bid, bname.toUpperCase() +" BANK---AC NO:"+bacct);
+
+				district.put(bid, bname.toUpperCase() + " BANK---AC NO:" + bacct);
 			}
 
-			
 			return district;
 		} catch (SQLException e) {
 			System.out.print(e.getMessage());
 		}
 		return district;
 	}
-	//ends here
-	
-	//fetches the deduction
+	// ends here
+
+	// Hashmap for the paslip count of the employee
+	public HashMap<Integer, String> getALLPaySlips(String email) {
+		HashMap<Integer, String> district = new HashMap<Integer, String>();
+
+		try {
+			String joined = null;
+			String designation = null;
+			String mail = null;
+			String dayz = null;
+			int empid = 0;
+			int sid = 0;
+
+			query = "select DATE_FORMAT(e.emp_join,'%b %D %Y') as joined ,e.designation,e.emp_id, s.email,DATE_FORMAT(s.formonth,'%b %D %Y') as dayz,s.id \r\n"
+					+ "from salary s,employee e \r\n" + "where s.email=e.emp_email and s.email=?";
+			pst = this.con.prepareStatement(query);
+			pst.setString(1, email);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				joined = rs.getString("joined");
+				designation = rs.getString("designation");
+				dayz = rs.getString("dayz");
+				empid = rs.getInt("emp_id");
+				mail = rs.getString("email");
+				sid = rs.getInt("id");
+
+				district.put(sid, joined+"  "+designation+"  "+"  "+dayz+"  "+empid+"  "+mail);
+			}
+
+			return district;
+		} catch (SQLException e) {
+			System.out.print(e.getMessage());
+		}
+		return district;
+	}
+	// ends here
+
+	// fetches the deduction
 	public HashMap<Integer, String> getAllDeductions() {
 		HashMap<Integer, String> district = new HashMap<Integer, String>();
 
@@ -103,26 +138,25 @@ public class SalaryMDao {
 
 			query = "SELECT * FROM deduction";
 			pst = this.con.prepareStatement(query);
-		
+
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				name = rs.getString("deduction");
-			
+
 				id = rs.getInt("id");
-				
-				district.put(id,name.toUpperCase());
+
+				district.put(id, name.toUpperCase());
 			}
 
-			
 			return district;
 		} catch (SQLException e) {
 			System.out.print(e.getMessage());
 		}
 		return district;
 	}
-	//end here
-	
-	//fetches the allowance
+	// end here
+
+	// fetches the allowance
 	public HashMap<Integer, String> getAllAllowances() {
 		HashMap<Integer, String> district = new HashMap<Integer, String>();
 
@@ -132,56 +166,55 @@ public class SalaryMDao {
 
 			query = "SELECT * FROM allowance";
 			pst = this.con.prepareStatement(query);
-		
+
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				name = rs.getString("allowance");
-				
+
 				id = rs.getInt("id");
-				
+
 				district.put(id, name.toUpperCase());
 			}
 
-			
 			return district;
 		} catch (SQLException e) {
 			System.out.print(e.getMessage());
 		}
 		return district;
 	}
-	//ends here
-	
-	//inserting into the notifications table
+	// ends here
+
+	// inserting into the notifications table
 	public int EmpNotification(String message, String bythe, String tothe, String role) {
 		int result = 0;
 		try {
 			query = "INSERT INTO notification (message,bythe,tothe,role) VALUES (?,?,?,?)";
 			pst = this.con.prepareStatement(query);
-			
+
 			pst.setString(1, message);
 			pst.setString(2, bythe);
 			pst.setString(3, tothe);
 			pst.setString(4, role);
-			
+
 			result = pst.executeUpdate();
-			System.out.println(result);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
-	//ends here
-	
-	//selecting the notifications that are not seen by employee
+	// ends here
+
+	// selecting the notifications that are not seen by employee
 	public int[] GetUnSeenNotifications(String email) {
-		int[] id = {0,0};
+		int[] id = { 0, 0 };
 		try {
 			query = "SELECT DATEDIFF(CURDATE(), date) AS days,id FROM notification WHERE seen=0 and tothe=?";
 
 			pst = this.con.prepareStatement(query);
 			pst.setString(1, email);
 			rs = pst.executeQuery();
-			
+
 			while (rs.next()) {
 				id[0] = rs.getInt("id");
 				id[1] = rs.getInt("days");
@@ -192,6 +225,28 @@ public class SalaryMDao {
 		return id;
 
 	}
-	//ends here
-	
+	// ends here
+
+	// selecting the months to be paid for the salary
+	public String[] GetUnPaidSalaryDates(String email) {
+		String[] id = { "", "" };
+		try {
+			query = "SELECT date_format( DATE_ADD(formonth, INTERVAL 1 MONTH), '%Y-%m') as topay ,if (date_format( DATE_ADD(formonth, INTERVAL 1 MONTH), '%Y-%m-01')>curdate(),'true','false' ) as topaytrue FROM salary where email=? order by id desc";
+
+			pst = this.con.prepareStatement(query);
+			pst.setString(1, email);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				id[0] = rs.getString("topay");
+				id[1] = rs.getString("topaytrue");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return id;
+
+	}
+	// ends here
+
 }

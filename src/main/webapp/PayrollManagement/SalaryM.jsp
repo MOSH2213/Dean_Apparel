@@ -12,7 +12,6 @@ SalaryMDao smd = new SalaryMDao(DbCon.getConnection());
 List<Employee> employee = smd.getAllEmployee();
 
 NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
-
 %>
 
 <!DOCTYPE html>
@@ -635,16 +634,15 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 												<%
 												if (!employee.isEmpty()) {
 													for (Employee emp : employee) {
-														
 												%>
 												<tr>
 													<td>
 														<div class="d-flex">
 
-															<img class="w-15 rounded ms-3" style=" cursor: pointer;" 
+															<img class="w-15 rounded ms-3" style="cursor: pointer;"
 																data-ImgOfSweet="../assets/img/Propics/employee/<%=emp.getPropic()%>"
 																src="../assets/img/Propics/employee/<%=emp.getPropic()%>"
-																alt="hoodie" >
+																alt="hoodie">
 															<h6 class="ms-3 my-auto text-capitalize"><%=emp.getName()%></h6>
 														</div>
 													</td>
@@ -654,33 +652,33 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 													</td>
 													<td class="text-sm text-center"><%=emp.getEmpjoin()%></td>
 													<td class="text-center"><a href="#"
-														class="generateSalaraybtn"
-														data-emptel="<%=emp.getTel() %>"
+														class="generateSalaraybtn" data-emptel="<%=emp.getTel()%>"
 														data-empmail="<%=emp.getEmail()%>"
 														data-empname="<%=emp.getName()%>"
 														data-empid="<%=emp.getId()%>"> <span
 															class="badge badge-warning badge-sm"> Generate
 																Salary </span>
-													</a> <!-- dropdown slipps --> <a href="#" class="dropdown"
-														id="viewSlipsItems" data-bs-toggle="dropdown"
-														aria-haspopup="true" aria-expanded="false"> <span
+													</a> 
+													<!-- dropdown slipps --> 
+													<a href="#" id="viewSlipsItems"   class="dropdown theDummyViewerOfPayslip" data-empmail="<%=emp.getEmail()%>" data-bs-toggle="dropdown"
+														aria-haspopup="true" aria-expanded="false">
+														 <span
 															class="badge badge-success badge-sm"> View PaySlip
 														</span>
 													</a>
-														<div class="dropdown-menu"
+														<div class="dropdown-menu" id="thePaySlipDropDownMenu"
 															aria-labelledby="viewSlipsItems">
-															<a class="dropdown-item" href="#">Action</a> <a
-																class="dropdown-item" href="#">Another action</a> <a
-																class="dropdown-item" href="#">Something else here</a>
-														</div> <!-- dropdown slipps ends--></td>
+															
+														</div> 
+														<!-- dropdown slipps ends--></td>
 												</tr>
 												<%
 												}
 												}
 												%>
 												<!-- the below hidden laaunches the generate salary modal -->
-												<button data-bs-toggle="modal" class="d-none"
-													id="fortheViewSlip" data-bs-target="#ViewSalarySlip">toogglemodal</button>
+												<button data-bs-toggle="modal" class="" id="fortheViewSlip"
+													data-bs-target="#ViewSalarySlip">toogglemodal</button>
 												</td>
 												<button class="d-none" data-bs-toggle="modal"
 													id="forthegenerateSlip" data-bs-target="#GenerateSlip">Generate
@@ -702,21 +700,50 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 								<div class="modal-body p-0">
 									<div class="row">
 										<div class="col-md-12">
-											<div class="card">
+											<div class="card" id="pdf">
 												<div class="card-body">
 													<h4 class="payslip-title text-center mb-4 text-uppercase">Payslip
 														for the month of Feb 2019</h4>
-													<div class="row mb-4">
-														<div class="col-sm-6 m-b-20">
-															<img src="../assets/img/Dean.png" />
+													<div class="row">
+														<div class="col-sm-6 mb-3">
+															<img src="../assets/img/Dean.png" alt="">
 														</div>
-														<div class="col-sm-6 m-b-20">
-															<div class="invoice-details">
-																<h3 class="text-uppercase">Payslip #49029</h3>
-																<ul class="list-unstyled">
-																	<li>Salary Month: <span>March, 2019</span></li>
-																</ul>
-															</div>
+														<div
+															class="col-sm-6 m-b-20 d-flex flex-column align-items-end">
+															<h3 class="text-uppercase">
+																PS<span class="text-danger">#149029</span>
+															</h3>
+															<ul class="list-unstyled">
+																<li>Salary Month: <span>March, 2019</span></li>
+															</ul>
+														</div>
+													</div>
+
+													<div class="row">
+														<div class="col-sm-6 m-b-20 ">
+															<ul class="list-unstyled">
+																<li>
+																	<h5 class="mb-0">
+																		<strong>John Doe</strong>
+																	</h5>
+																</li>
+																<li><span>Web Designer</span></li>
+																<li>Employee ID: FT-0009</li>
+																<li>Joining Date: 1 Jan 2013</li>
+															</ul>
+														</div>
+														<div
+															class="col-sm-6 m-b-20 d-flex flex-column align-items-end">
+															<ul class="list-unstyled mb-0">
+																<li>
+																	<h5 class="mb-0 text-end">
+																		<strong>John Doe</strong>
+																	</h5>
+																</li>
+																<li>Dreamguy's Technologies</li>
+																<li>3864 Quiet Valley Lane,</li>
+																<li>Sherman Oaks, CA, 91403</li>
+															</ul>
 														</div>
 													</div>
 
@@ -778,31 +805,17 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 																			<td><strong>Total Deductions</strong> <span
 																				class="float-end"><strong>$59698</strong></span></td>
 																		</tr>
-																		<tr>
-																			<td><strong>Total Allowance</strong> <span
-																				class="float-end"><strong>$59698</strong></span></td>
-																		</tr>
-																		<tr>
-																			<td><strong>Net Salary</strong> <span
-																				class="float-end"><strong>$59698</strong></span></td>
-																		</tr>
+
 																	</tbody>
 																</table>
 															</div>
 														</div>
-														<!-- <div class="col-sm-12">
-															<p class="text-end mb-1">
-																<strong>Deductions Total: $59698</strong>
+														<div class="col-sm-12  d-flex justify-content-end">
+															<p class="h3">
+																<strong class="text-danger">Net Salary: $59698</strong>
 															</p>
-															<p class="text-end mb-1">
-																<strong>Allowance Total: $59698</strong> 
-															</p>
-															<p class="text-end mb-1">
-																<strong>Total Salary: $59698</strong>
-															</p>
-															<p class="text-end">Fifty nine thousand six hundred and
-																ninety eight only</p>
-														</div>-->
+														</div>
+
 													</div>
 												</div>
 											</div>
@@ -812,8 +825,10 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 								<div class="modal-footer p-0 d-flex justify-content-center">
 									<button type="button" class="btn btn-secondary"
 										data-bs-dismiss="modal">Close</button>
-									<button type="button" class="btn btn-primary">Save
-										changes</button>
+									<button type="button" class="btn btn-danger"
+										onclick="generatepdf()">PDF</button>
+									<button type="button" class="btn btn-success"
+										onclick="generateimg()">IMG</button>
 								</div>
 							</div>
 						</div>
@@ -853,7 +868,7 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 												<select class="form-select" id="generateSlipBankSelect"
 													aria-label="Default select example">
 													<option value="">entry.getValue</option>
-												
+
 												</select>
 											</div>
 										</div>
@@ -872,21 +887,21 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 														HashMap<Integer, String> bank = new HashMap<Integer, String>();
 														bank = smd.getAllAllowances();
 														for (Map.Entry<Integer, String> entry : bank.entrySet()) {
-														%>	
-														<li>
-															<a class="pb-0 py-0 px-2 mb-0 dropdown-item" href="#">
+														%>
+														<li><a class="pb-0 py-0 px-2 mb-0 dropdown-item"
+															href="#">
 																<div class="form-check">
 																	<input class="form-check-input" type="checkbox"
-																		value="<%=entry.getKey() %>" id="Checkme<%=entry.getValue() %>" /> 
-																	<label
-																		class="form-check-label" for="Checkme<%=entry.getValue() %>"><%=entry.getValue() %></label>
+																		value="<%=entry.getKey()%>"
+																		id="Checkme<%=entry.getValue()%>" /> <label
+																		class="form-check-label"
+																		for="Checkme<%=entry.getValue()%>"><%=entry.getValue()%></label>
 																</div>
-															</a>
-														</li>
-														<%	
+														</a></li>
+														<%
 														}
 														%>
-														
+
 													</ul>
 												</div>
 
@@ -904,18 +919,18 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 														HashMap<Integer, String> banks = new HashMap<Integer, String>();
 														banks = smd.getAllDeductions();
 														for (Map.Entry<Integer, String> entry : banks.entrySet()) {
-														%>	
-														<li>
-															<a class="pb-0 py-0 px-2 mb-0 dropdown-item" href="#">
+														%>
+														<li><a class="pb-0 py-0 px-2 mb-0 dropdown-item"
+															href="#">
 																<div class="form-check">
 																	<input class="form-check-input" type="checkbox"
-																		value="<%=entry.getKey() %>" id="Checkme<%=entry.getValue() %>" /> 
-																	<label
-																		class="form-check-label" for="Checkme<%=entry.getValue() %>"><%=entry.getValue() %></label>
+																		value="<%=entry.getKey()%>"
+																		id="Checkme<%=entry.getValue()%>" /> <label
+																		class="form-check-label"
+																		for="Checkme<%=entry.getValue()%>"><%=entry.getValue()%></label>
 																</div>
-															</a>
-														</li>
-														<%	
+														</a></li>
+														<%
 														}
 														%>
 													</ul>
@@ -947,7 +962,8 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 											<div class="col-12 mt-0 text-center">
 												<button data-bs-dismiss="modal" type="button"
 													class="btn btn-primary">Close</button>
-												<button type="button" id="ModalGenerateSalBtn" class="btn btn-primary">Generate</button>
+												<button type="button" id="ModalGenerateSalBtn"
+													class="btn btn-primary">Generate</button>
 											</div>
 										</div>
 
@@ -2616,8 +2632,34 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
         }
     </script>
 
-	<!-- required to the excelsheet strats -->
+	<!-- required to the excelsheet strats and PDF/IMG-->
 	<script>
+		function generateimg() {
+	        const imgs = document.getElementById('pdf');
+	        html2canvas(imgs).then((canvas) => {
+	            const base = canvas.toDataURL("image/png");
+	            var anchor = document.createElement('a');
+	            anchor.setAttribute("href", base);
+	            anchor.setAttribute("download", "PaySlip.png");
+	            anchor.click();
+	            anchor.remove();
+	
+	        });
+	    }
+	    //////////////////////////////
+	    function generatepdf() {
+	        const imgs = document.getElementById('pdf');
+	        html2canvas(imgs).then((canvas) => {
+	            const base = canvas.toDataURL("image/png");
+	
+	            //jsPDF
+	            let pdf = new jsPDF('l','pt',[595.28 ,  841.89]);//a4size
+	            pdf.addImage(base, 'PNG', 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight(), '', 'NONE', 0);
+	            //pdf.addImage(base,'PNG',0,0,1438,662);//content Size
+	            pdf.save('Payslip.pdf');
+	        });
+	    }
+	    ////////////////////////////////
 
         //table 1
         function ExportToExcel1(type, fn, dl) {
@@ -3025,6 +3067,16 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 		src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 	<!-- required to the excelsheet ends herer -->
 
+	<!-- required to IMG and PDF -->
+	<script src="../assets/js/plugins/html2canvas.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.es.js"
+		integrity="sha512-VTufZOUx+Gc0N4JkluA0ZkVs2x4wfDI3p60gRWpHT761kMQ+hiNlYI+8MGXbLO48ymPKAeRa1wsEm3BIaxSEvw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+	<!-- ends here -->
+
 	<!-- barcode js -->
 	<script src="../assets/js/plugins/jsBarcode_min.js"></script>
 	<!-- sweetalert js -->
@@ -3062,14 +3114,6 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
     </script>
 
 	<script>
-		let todays = new Date();
-		//let dd = String(todays.getDate()).padStart(2, '0');
-		let mm = String(todays.getMonth() + 1).padStart(2, '0'); //January is 0!
-		let yyyy = todays.getFullYear();
-		todays = yyyy + '-' + mm;
-		
-		$("input[type=month]").attr("max", todays);
-		
 		
 		//for the checkboxes withour being destructed
 	    $('#columnsListDropDown li').click(function(e){
@@ -3097,11 +3141,19 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 			         data: "empmail=" + $(this).attr("data-empmail"),
 			         success: function(response) {
 			            var oob = JSON.parse(response);
-			            if (oob.status == "valid") {
-			               $('#generateSlipBankSelect').html(oob.value);
-			               //launches the modal with jquery
-			               $("#forthegenerateSlip").click();
-			            } else if (oob.status == "invalid") {
+			            if(oob.status == "valid" && oob.topaytrue=="false"){
+			            	$('#generateSlipBankSelect').html(oob.value);
+			               	//launches the modal with jquery
+			               	$("#forthegenerateSlip").click();
+			           		$("input[type=month]").attr("max", oob.topay);
+			    			$("input[type=month]").attr("min", oob.topay);
+			            }else if (oob.status == "valid" && oob.topaytrue=="true") {
+			            	Swal.fire({
+			            		  icon: 'info',
+			            		  title: 'Oops...',
+			            		  text: 'Payments Are Already Settled'
+			            		})
+			            }else if (oob.status == "invalid") {
 			               //$('#generateSlipBankSelect').html("<option selected>Contact Empoyee "+tel+"</option>");
 			               Swal.fire({
 			                  title: 'Funding Error',
@@ -3217,6 +3269,42 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 			            imageAlt: 'Custom image',
 			         })
 			      }
+			   })
+			   $(document).on('click', '.theDummyViewerOfPayslip', function(e) {
+				   $.ajax({
+						type : 'POST',
+						url : '../SalaryServlet',
+						data : "empmail=" + $(this).attr("data-empmail") + "&for=fortheslipcount",
+						success : function(response) {
+							var oob = JSON.parse(response);
+							if (oob.status == "valid" && oob.value!=null) {
+								$('#thePaySlipDropDownMenu').html(oob.value);
+							
+							}
+							else if (oob.status == "invalid") {
+								const Toast = Swal.mixin({
+ 									  toast: true,
+ 									  position: 'top-end',
+ 									  showConfirmButton: false,
+ 									  timer: 2000,
+ 									  timerProgressBar: true,
+ 									  didOpen: (toast) => {
+ 									    toast.addEventListener('mouseenter', Swal.stopTimer)
+ 									    toast.addEventListener('mouseleave', Swal.resumeTimer)
+ 									  }
+ 									})
+
+ 									Toast.fire({
+ 									  icon: 'error',
+ 									  title: 'No Pay Slip Present'
+ 									})
+							}
+						},
+						error : function() {
+							alert("error");
+						}
+
+					})
 			   })
 			})
 	</script>

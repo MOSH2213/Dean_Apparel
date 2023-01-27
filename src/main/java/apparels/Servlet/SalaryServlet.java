@@ -39,11 +39,9 @@ public class SalaryServlet extends HttpServlet {
 			String adminmail = "dummyAdmin"; 
 			
 			JSONObject obj = new JSONObject();
-			StringBuilder html = new StringBuilder();
-			
 			SalaryMDao sDao = new SalaryMDao(DbCon.getConnection());
 			
-			System.out.println(empmail+" "+fordb+" "+message);
+			
 			
 			if(empmail!=null && fordb!=null && message!=null) {
 				int returns[] = {0,0};
@@ -68,10 +66,44 @@ public class SalaryServlet extends HttpServlet {
 				}
 				
 				
+			}else if(empmail!=null && fordb.equals("fortheslipcount") ) {
+				StringBuilder html = new StringBuilder();
+				HashMap<Integer, String> banks = new HashMap<Integer, String>();
+				
+				banks= sDao.getALLPaySlips(empmail);
+				for (Entry<Integer, String> entry : banks.entrySet()) {
+					
+					String wordbreak=entry.getValue();
+					String[] words = wordbreak.split("  ");
+					
+					String joined=words[0];
+					String designation=words[1];
+					String dayz=words[2];
+					String empid=words[3]; 
+					String mail=words[4]; 
+					
+					html.append("<a data-sid='"+entry.getKey()+"' data-empjoin='"+joined+"' data-empdesignation='"+designation+"' data-empdayz='"+dayz+"' data-empid='"+empid+"' data-empmail='"+mail+"' class='dropdown-item' href='#'>"+joined+"</a>");
+					
+				}
+				if(html.toString().equals("")) {
+					obj.put("value", "");
+					obj.put("status", "invalid");
+					out.print(obj);
+				}else if(!html.toString().equals("")) {
+					
+					obj.put("value", html.toString());
+					obj.put("status", "valid");
+					out.print(obj);
+				}
+				
 			}else if(empmail!=null) {
 				
+				StringBuilder html = new StringBuilder();
+				String[] topayString={"",""};
 				HashMap<Integer, String> banks = new HashMap<Integer, String>();
+				
 				banks = sDao.getALLBankAccounts(empmail);
+				topayString= sDao.GetUnPaidSalaryDates(empmail);
 				
 				for (Entry<Integer, String> entry : banks.entrySet()) {
 					html.append("<option value="+entry.getKey()+">"+entry.getValue()+"</option>");
@@ -81,6 +113,8 @@ public class SalaryServlet extends HttpServlet {
 					obj.put("status", "invalid");
 					out.print(obj);
 				}else if(!html.toString().equals("")) {
+					obj.put("topay", topayString[0]);
+					obj.put("topaytrue", topayString[1]);
 					obj.put("value", html.toString());
 					obj.put("status", "valid");
 					out.print(obj);

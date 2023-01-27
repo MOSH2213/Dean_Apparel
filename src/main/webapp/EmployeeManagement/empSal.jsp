@@ -51,22 +51,47 @@
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-body">
-						<h4 class="payslip-title text-center mb-4 text-uppercase">Payslip
+						<h4 class="payslip-title text-center text-uppercase">Payslip
 							for the month of Feb 2019</h4>
-						<div class="row mb-4">
-							<div class="col-sm-6 m-b-20">
-								<img src="../assets/img/Dean.png" />
+						<div class="row">
+							<div class="col-sm-6 mb-3">
+								<img src="../assets/img/Dean.png" alt="">
 							</div>
-							<div class="col-sm-6 m-b-20">
-								<div class="invoice-details">
-									<h3 class="text-uppercase">Payslip #49029</h3>
-									<ul class="list-unstyled">
-										<li>Salary Month: <span>March, 2019</span></li>
-									</ul>
-								</div>
+							<div class="col-sm-6 m-b-20 d-flex flex-column align-items-end">
+								<h3 class="text-uppercase">
+									Payslip <span class="text-danger">#49029</span>
+								</h3>
+								<ul class="list-unstyled">
+									<li>Salary Month: <span>March, 2019</span></li>
+								</ul>
 							</div>
 						</div>
-
+						<div class="row">
+							<div class="col-sm-6 m-b-20 ">
+								<ul class="list-unstyled">
+									<li>
+										<h5 class="mb-0">
+											<strong>John Doe</strong>
+										</h5>
+									</li>
+									<li><span>Web Designer</span></li>
+									<li>Employee ID: FT-0009</li>
+									<li>Joining Date: 1 Jan 2013</li>
+								</ul>
+							</div>
+							<div class="col-sm-6 m-b-20 d-flex flex-column align-items-end">
+								<ul class="list-unstyled mb-0">
+									<li>
+										<h5 class="mb-0 text-end">
+											<strong>John Doe</strong>
+										</h5>
+									</li>
+									<li>Dreamguy's Technologies</li>
+									<li>3864 Quiet Valley Lane,</li>
+									<li>Sherman Oaks, CA, 91403</li>
+								</ul>
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-sm-6">
 								<div>
@@ -84,7 +109,8 @@
 													class="float-end">$55</span></td>
 											</tr>
 											<tr>
-												<td><strong>Conveyance</strong> <span class="float-end">$55</span></td>
+												<td><strong>Conveyance</strong> <span class="float-end">$55</span>
+												</td>
 											</tr>
 											<tr>
 												<td><strong>Other Allowance</strong> <span
@@ -123,34 +149,20 @@
 												<td><strong>Total Deductions</strong> <span
 													class="float-end"><strong>$59698</strong></span></td>
 											</tr>
-											<tr>
-												<td><strong>Total Allowance</strong> <span
-													class="float-end"><strong>$59698</strong></span></td>
-											</tr>
-											<tr>
-												<td><strong>Net Salary</strong> <span
-													class="float-end"><strong>$59698</strong></span></td>
-											</tr>
 										</tbody>
 									</table>
 								</div>
 							</div>
-							<!-- <div class="col-sm-12">
-								<p class="text-end mb-1">
-									<strong>Deductions Total: $59698</strong>
+							<div class="col-sm-12  d-flex justify-content-end">
+								<p class="h3">
+									<strong class="text-danger">Net Salary: $59698</strong>
 								</p>
-								<p class="text-end mb-1">
-									<strong>Allowance Total: $59698</strong> 
-								</p>
-								<p class="text-end mb-1">
-									<strong>Total Salary: $59698</strong>
-								</p>
-								<p class="text-end">Fifty nine thousand six hundred and
-									ninety eight only</p>
-							</div>-->
+							</div>
 						</div>
 					</div>
 				</div>
+
+				
 			</div>
 		</div>
 	</main>
