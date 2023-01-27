@@ -82,7 +82,7 @@ public class SalaryServlet extends HttpServlet {
 					String empid=words[3]; 
 					String mail=words[4]; 
 					
-					html.append("<a data-sid='"+entry.getKey()+"' data-empjoin='"+joined+"' data-empdesignation='"+designation+"' data-empdayz='"+dayz+"' data-empid='"+empid+"' data-empmail='"+mail+"' class='dropdown-item' href='#'>"+joined+"</a>");
+					html.append("<a data-sid='"+entry.getKey()+"' data-empjoin='"+joined+"' data-empdesignation='"+designation+"' data-empdayz='"+dayz+"' data-empid='"+empid+"' data-empmail='"+mail+"' class='dropdown-item forThepaySlipJSP' href='#'>"+joined+"</a>");
 					
 				}
 				if(html.toString().equals("")) {

@@ -116,8 +116,10 @@ public class SalaryMDao {
 				empid = rs.getInt("emp_id");
 				mail = rs.getString("email");
 				sid = rs.getInt("id");
-
-				district.put(sid, joined+"  "+designation+"  "+"  "+dayz+"  "+empid+"  "+mail);
+				
+				
+				
+				district.put(sid, joined+"  "+designation+"  "+dayz+"  "+empid+"  "+mail);
 			}
 
 			return district;
@@ -249,4 +251,38 @@ public class SalaryMDao {
 	}
 	// ends here
 
+		
+	//for the header section of the Payslip
+	public ArrayList<String> getPaySlipHeader(String sid,String email) {
+		ArrayList<String> heads = new ArrayList<String>();
+		
+		try {
+			query = "select  e.emp_name as name , e.designation , e.emp_id ,DATE_FORMAT(e.emp_join, \"%D %b %Y\") as joined,s .reference , DATE_FORMAT(formonth,'%M %Y') as smonth , e.basicsalary,s.salAmount as totalsalary  \r\n"
+					+ "from salary s,roleallowance ra, rolededuction rd ,employee e\r\n"
+					+ "where s.email = e.emp_email and s.email=ra.email and rd.email=s.email and s.id=? and s.email =? \r\n"
+					+ "LIMIT 1;";
+			pst = this.con.prepareStatement(query);
+			pst.setString(1, sid);
+			pst.setString(2, email);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				
+				heads.add(0,rs.getString("name"));
+				heads.add(1,rs.getString("designation"));
+				heads.add(2,rs.getString("emp_id"));
+				heads.add(3,rs.getString("joined"));
+				heads.add(4,rs.getString("reference"));
+				heads.add(5,rs.getString("smonth"));
+				heads.add(6,rs.getString("basicsalary"));
+				heads.add(7,rs.getString("totalsalary"));
+			}
+		
+		} catch (SQLException e) {
+			System.out.print(e.getMessage());
+		}
+		return heads;
+	
+		
+	}
+	//ebds here
 }
