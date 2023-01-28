@@ -138,7 +138,7 @@ public class SalaryMDao {
 			String name = null;
 			int id = 0;
 
-			query = "SELECT * FROM deduction";
+			query = "SELECT * FROM deduction WHERE reference NOT IN ('DE001');";
 			pst = this.con.prepareStatement(query);
 
 			rs = pst.executeQuery();
@@ -166,7 +166,7 @@ public class SalaryMDao {
 			String name = null;
 			int id = 0;
 
-			query = "SELECT * FROM allowance";
+			query = "SELECT * FROM allowance WHERE reference NOT IN ('AL001');";
 			pst = this.con.prepareStatement(query);
 
 			rs = pst.executeQuery();
