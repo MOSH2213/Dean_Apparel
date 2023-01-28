@@ -3002,7 +3002,8 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 	    })
     </script>
 	<!-- ajax scripts starts here -->
-	<script>$(document).ready(function() {
+	<script>
+	$(document).ready(function() {
 		   $(document).on('click', '.generateSalaraybtn', function(e) {
 			      //takes tehe specific values of the employee
 			      var empids = $(this).attr("data-empid");

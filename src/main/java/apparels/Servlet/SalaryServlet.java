@@ -66,7 +66,7 @@ public class SalaryServlet extends HttpServlet {
 				}
 				
 				
-			}else if(empmail!=null && fordb.equals("fortheslipcount") ) {
+			}else if(empmail!=null && fordb!=null ) {
 				StringBuilder html = new StringBuilder();
 				HashMap<Integer, String> banks = new HashMap<Integer, String>();
 				
@@ -120,6 +120,7 @@ public class SalaryServlet extends HttpServlet {
 					out.print(obj);
 				}
 			}
+			
 			
 			
 
