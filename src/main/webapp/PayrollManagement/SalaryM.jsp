@@ -719,7 +719,7 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">
 								<div class="modal-body">
-									<form>
+									<form id="myFormSalaryGen" action="javascript:0">
 										<div class="row">
 											<div class="col-md-6">
 												<div class="mb-3">
@@ -769,7 +769,8 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 														<li><a class="pb-0 py-0 px-2 mb-0 dropdown-item"
 															href="#">
 																<div class="form-check">
-																	<input class="form-check-input" type="checkbox"
+																	<input class="form-check-input" type="checkbox" required
+																		name="allowance"
 																		value="<%=entry.getKey()%>"
 																		id="Checkme<%=entry.getValue()%>" /> <label
 																		class="form-check-label"
@@ -801,7 +802,8 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 														<li><a class="pb-0 py-0 px-2 mb-0 dropdown-item"
 															href="#">
 																<div class="form-check">
-																	<input class="form-check-input" type="checkbox"
+																	<input class="form-check-input" type="checkbox" required
+																		name="deduction"
 																		value="<%=entry.getKey()%>"
 																		id="Checkme<%=entry.getValue()%>" /> <label
 																		class="form-check-label"
@@ -818,7 +820,7 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 											<div class="col-md-4 d-flex align-items-end mt-0 ">
 												<input
 													style="color: #5E72E4; font-weight: 600; font-size: 15px; border: 1px #5E72E4 solid"
-													type="month" class="rounded p-1 bg bg-outline-secondary"
+													type="month" id="generateSalaryMonth" class="rounded p-1 bg bg-outline-secondary"
 													name="SalaryDate">
 											</div>
 
@@ -828,8 +830,8 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 											<div class="col-12 mt-0 text-center">
 												<div class="form-group">
 													<textarea placeholder="Any Salary Related Notes..."
-														style="resize: none;" class="form-control"
-														id="exampleFormControlTextarea1" rows="7"></textarea>
+														style="resize: none;" required class="form-control"
+														id="generateSalaryTextArea" rows="7"></textarea>
 												</div>
 											</div>
 										</div>
@@ -840,7 +842,7 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 											<div class="col-12 mt-0 text-center">
 												<button data-bs-dismiss="modal" type="button"
 													class="btn btn-primary">Close</button>
-												<button type="button" id="ModalGenerateSalBtn"
+												<button type="submit" id="ModalGenerateSalBtn"
 													class="btn btn-primary">Generate</button>
 											</div>
 										</div>
@@ -3010,6 +3012,7 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 			      var empnames = $(this).attr("data-empname");
 			      var empmails = $(this).attr("data-empmail");
 			      var tel = $(this).attr("data-emptel");
+			      var myArray = [1, 2, 3];
 			      //assigns the values to the pnut tags in the generate slip modal
 			      $('#generateSlipsnames').val($(this).attr("data-empname"));
 			      $('#generateSlipemails').val($(this).attr("data-empmail"));
@@ -3210,6 +3213,90 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 						}
 
 					})
+			   })
+			   
+			   $(document).on('click', '#ModalGenerateSalBtn', function(e) {
+				   var $myForm = $('#myFormSalaryGen');
+				   if (!$myForm[0].checkValidity()) {
+			 		    $myForm.find(':submit').click();
+			 		}else{
+			 			
+			 			var allowance = [];
+						var deduction = [];
+						
+						$("#myFormSalaryGen input[name='allowance']:checked").each(function() {
+						  allowance.push($(this).val());
+						});
+						
+						$("#myFormSalaryGen input[name='deduction']:checked").each(function() {
+						  deduction.push($(this).val());
+						});
+						
+						
+			 			var formData = {
+			 					
+			 				allowance: allowance, 
+			 				deduction: deduction, 
+			 				generateSlipemails: $("#generateSlipemails").val(),	
+			 				generateSlipsnames: $("#generateSlipsnames").val(),	
+			 				generateSlipBankSelect: $("#generateSlipBankSelect").val(),	
+			 				generateSalaryTextArea: $("#generateSalaryTextArea").val(),	
+			 				generateSalaryMonth: $("#generateSalaryMonth").val()+"-01",		
+				            
+			       		 };
+			 			// alert($("#generateSlipemails").val()+""+$("#generateSlipsnames").val()+""+$("#generateSlipBankSelect").val()+""+$("#generateSalaryTextArea").val()+""+$("#generateSalaryMonth").val()+""+deduction+""+allowance);
+				        $.ajax({
+				            type: 'POST',
+				            url: '../SalaryServlet',
+				            data: JSON.stringify(formData),  
+				            success: function(response) {
+				                var oob = JSON.parse(response);
+				                if (oob.status == "valid") {
+				                    $('.closethemodal').click();
+				                    const Toast = Swal.mixin({
+				                        toast: true,
+				                        position: 'top-end',
+				                        showConfirmButton: false,
+				                        timer: 2000,
+				                        timerProgressBar: true,
+				                        didOpen: (toast) => {
+				                            toast.addEventListener('mouseenter', Swal.stopTimer)
+				                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+				                        }
+				                    })
+			
+				                    Toast.fire({
+				                        icon: 'success',
+				                        title: 'Refund Submitted'
+				                    })
+				                }
+				                if (oob.status == "invalid") {
+				                    $('.closethemodal').click();
+				                    const Toast = Swal.mixin({
+				                        toast: true,
+				                        position: 'top-end',
+				                        showConfirmButton: false,
+				                        timer: 2000,
+				                        timerProgressBar: true,
+				                        didOpen: (toast) => {
+				                            toast.addEventListener('mouseenter', Swal.stopTimer)
+				                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+				                        }
+				                    })
+			
+				                    Toast.fire({
+				                        icon: 'error',
+				                        title: 'Submission Failed'
+				                    })
+				                }
+				               
+				            },
+				            error: function() {
+				                alert("error");
+				            }
+			
+				        })
+			 		}
 			   })
 			})
 	</script>
