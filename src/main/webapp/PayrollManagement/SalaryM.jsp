@@ -3248,7 +3248,8 @@ NumberFormat nf = NumberFormat.getInstance(new Locale("en", "US"));
 				        $.ajax({
 				            type: 'POST',
 				            url: '../SalaryServlet',
-				            data: JSON.stringify(formData),  
+				            data: JSON.stringify(formData),
+				            //data: "jsonString="+JSON.stringify(formData),  
 				            success: function(response) {
 				                var oob = JSON.parse(response);
 				                if (oob.status == "valid") {

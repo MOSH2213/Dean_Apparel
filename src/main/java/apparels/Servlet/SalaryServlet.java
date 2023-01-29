@@ -2,6 +2,7 @@ package apparels.Servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -17,6 +18,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import com.mysql.cj.xdevapi.JsonString;
 
 import apparels.DAO.SalaryMDao;
 import apparels.DBcon.DbCon;
@@ -34,6 +37,9 @@ public class SalaryServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try (PrintWriter out = response.getWriter()) {
+			
+			
+			
 			
 			String empmail = request.getParameter("empmail");
 			String fordb = request.getParameter("for");
@@ -126,10 +132,19 @@ public class SalaryServlet extends HttpServlet {
 				}
 			}
 			
-			String jsonString = request.getReader().lines().collect(Collectors.joining());
+			String jonString="";
+			Enumeration<String> params = request.getParameterNames(); 
+			while(params.hasMoreElements()){
+			 String paramName = params.nextElement();
+			 jonString = paramName;
+			 //System.out.println("Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
+			}
+			
+			//String jsonString = request.getReader().lines().collect(Collectors.joining());
 			JSONParser parser = new JSONParser();
+			
 			try {
-				JSONObject json = (JSONObject) parser.parse(jsonString);
+				JSONObject json = (JSONObject) parser.parse(jonString);
 				JSONArray allowance = (JSONArray) json.get("allowance");
 				JSONArray deduction = (JSONArray) json.get("deduction");
 				String empSalmail = (String) json.get("generateSlipemails");
