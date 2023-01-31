@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -14,6 +15,8 @@ public class LogTimeDao {
 	private PreparedStatement pst;
 	private ResultSet rs;
 
+	java.util.Date date = new java.util.Date();
+	
 	public LogTimeDao(Connection con) {
 		this.con = con;
 	}
@@ -40,6 +43,28 @@ public class LogTimeDao {
 		}
 		return result;
 	}
+	
+	//for the logout time
+	public boolean updateLogs(String email) {
+		boolean result = false;
+
+		try {
+			pst = this.con.prepareCall("{call generateActHrs(?, ?)}");
+
+			Timestamp currentTime = new Timestamp(date.getTime());
+
+			pst.setString(1, email);
+			pst.setTimestamp(2, currentTime);
+
+			pst.execute();
+			result = true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	//ensd here
 	
 
 }
