@@ -58,6 +58,7 @@ public class LoginServlet extends HttpServlet {
 				String password=request.getParameter("password");
 				int role = 3;
 				
+				
 				//for the cartquantity session to print in the cart icon nav
 				String quantity = "";
 				
@@ -68,11 +69,22 @@ public class LoginServlet extends HttpServlet {
 				String country =request.getParameter("country");
 				String city =request.getParameter("city");
 				String region =request.getParameter("region");
-				String lat =request.getParameter("lat");
-				String longs =request.getParameter("long");
+				String lat =request.getParameter("latitude");
+				String longs =request.getParameter("longitude");
 				String browser =request.getParameter("browser");
-				String version =request.getParameter("version");
-				String os =request.getParameter("os");
+
+				String leisure = request.getParameter("leisure");
+				String road = request.getParameter("road");
+				String neighbourhood = request.getParameter("neighbourhood");
+				String hamlet = request.getParameter("hamlet");
+				String town = request.getParameter("town");
+				String state_district = request.getParameter("state_district");
+				String state = request.getParameter("state");
+				String postcode = request.getParameter("postcode");
+				String deviceType = request.getParameter("deviceType");
+				String country_code = request.getParameter("country_code");
+				
+				//System.out.println(lat+" "+longs+" "+postcode+" "+state+" "+deviceType);
 				
 				//for the cartquantity session to print in the cart icon nav
 				CartDao cartcontent = new CartDao(DbCon.getConnection());
@@ -111,10 +123,7 @@ public class LoginServlet extends HttpServlet {
 				else if(password== null || password.equals("")) {
 					obj.put("status", "invalidPassword");
 					out.print(obj);
-				}
-			
-				
-				else if(user !=null) {
+				}else if(user !=null) {
 					
 					
 					request.getSession().setAttribute("auth", user);
@@ -131,6 +140,9 @@ public class LoginServlet extends HttpServlet {
 					
 					LogTimeDao lgtime= new LogTimeDao(DbCon.getConnection()); 
 					boolean result = lgtime.insertlogs(logtime);
+					
+					int lids=lgtime.lastLogID(email, formatter_time.format(time));
+					lgtime.insertlogsDetection(lids, ip, isp,Double.parseDouble(lat), Double.parseDouble(longs),Integer.parseInt(postcode), leisure, road, neighbourhood, hamlet, town, state_district, state, country_code, country, deviceType);
 					
 					
 					//the boelow is the code related to the sms sendings
@@ -150,8 +162,6 @@ public class LoginServlet extends HttpServlet {
 					// email body insert here
 					
 					//mail forwarding ends here
-					
-					//redirects to index.jsp page
 					
 					obj.put("status", "success");
 					obj.put("location", "Products.jsp");

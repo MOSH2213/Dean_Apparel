@@ -114,153 +114,154 @@ a:hover {
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/platform/1.3.6/platform.min.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<!-- used in order to detect Device -->
+	<script type="text/javascript" src="//wurfl.io/wurfl.js"></script>
+	
 	<script type="text/javascript">
 		
-    $(document).ready(function(){
-		$("#mysubmit").click(function(e){
-		    $.getJSON('https://ipapi.co/json/', function (data) {
-	            
-	            /////////////////////////
-	            var email =$('#email').val();
-				var password = $('#password').val();
-				var ip = data.ip;
-				var org = data.org;
-				var country = data.country_name;
-				var city = data.city;
-				var region = data.region;
-				var latitude = data.latitude;
-				var longitude = data.longitude;
-				var browser = platform.name;
-				var version = platform.version;
-				var layout = platform.layout;
-				var os = platform.os;
-				$.ajax({
-					type:'POST',
-					url:'../LoginServlet',
-					data:{"email":email,
-						  "password":password,
-						  "ip":ip,
-						  "isp":org,
-						  "country":country,
-						  "city":city,
-						  "region":region,
-						  "latitude":latitude,
-						  "longitude":longitude},
-						  
+	    $(document).ready(function(){
+			$("#mysubmit").click(function(e){
+			    $.getJSON('https://ipapi.co/json/', function (data) {
+			    	 /////////////////////////
+		            var email =$('#email').val();
+					var password = $('#password').val();
 					
-					success:function(response){
-						var oob = JSON.parse(response);
-						  if (oob.status == "invalidEmail") {
-					            Swal.fire({
-					                title: 'Invalid Email',
-					                text: "Please Enter Valid Email!",
-					                icon: 'warning',
-					                iconColor: '#000000',
-					                showCancelButton: false,
-					                confirmButtonColor: '#000000',
-					                cancelButtonColor: '#616161',
-					                confirmButtonText: 'OK'
-					            });
-					        }
-					        if (oob.status == "invalidPassword") {
-					            Swal.fire({
-					                title: 'Invalid Password',
-					                text: "Please Enter Valid Password!",
-					                icon: 'warning',
-					                iconColor: '#000000',
-					                showCancelButton: false,
-					                confirmButtonColor: '#000000',
-					                cancelButtonColor: '#616161',
-					                confirmButtonText: 'OK'
-					            });
-					        }
-					        if (oob.status == "invalidCredentials") {
-					            Swal.fire({
-					                title: 'Invalid Credentials',
-					                text: "Please Enter Valid Credentials!",
-					                icon: 'warning',
-					                iconColor: '#000000',
-					                showCancelButton: false,
-					                confirmButtonColor: '#000000',
-					                cancelButtonColor: '#616161',
-					                confirmButtonText: 'OK'
-					            });
-					        }
-					        if (oob.status == "success") {
-					           // Swal.fire({
-					                //title: 'Welcome User',
-					                //text: "Login Success!",
-					                //icon: 'success',
-					                //iconColor: '#000000',
-					                //showCancelButton: false,
-					                //confirmButtonColor: '#000000',
-					                //cancelButtonColor: '#616161',
-					                //confirmButtonText: 'OK'
-					            //});
-					        	window.location = oob.location;
-					        }
-					        if (oob.status == "resetSuccess") {
-					            Swal.fire({
-					                title: 'Success',
-					                text: "Password Reset Success!",
-					                icon: 'success',
-					                iconColor: '#000000',
-					                showCancelButton: false,
-					                confirmButtonColor: '#000000',
-					                cancelButtonColor: '#616161',
-					                confirmButtonText: 'OK'
-					            });
-					        }
-					        if (oob.status == "resetFailed") {
-					            Swal.fire({
-					                title: 'UnSuccessful',
-					                text: "Password Reset UnSuccess!",
-					                icon: 'error',
-					                iconColor: '#000000',
-					                showCancelButton: false,
-					                confirmButtonColor: '#000000',
-					                cancelButtonColor: '#616161',
-					                confirmButtonText: 'OK'
-					            });
-					        }
-					},
-					error:function(){
-						alert("error");
-					}
-			
-				})
-	        })
-			
-		})
-	});
-    
-     
-        function times() {
-            let timerInterval
-            Swal.fire({
-                title: 'We Are Gathering Resources For You !',
-                icon: 'info',
-                iconColor: '#282C34',
-                html: 'Loading Resources  <b></b> .',
-                timer: 36000,
-                timerProgressBar: true,
-                didOpen: () => {
-                    Swal.showLoading()
-                    const b = Swal.getHtmlContainer().querySelector('b')
-                    timerInterval = setInterval(() => {
-                        b.textContent = Swal.getTimerLeft()
-                    }, 100)
-                },
-                willClose: () => {
-                    clearInterval(timerInterval)
-                }
-            }).then((result) => {
-                /* Read more about handling dismissals below */
-                if (result.dismiss === Swal.DismissReason.timer) {
-                    console.log('I was closed by the timer')
-                }
-            })
-        }
+					var ip = data.ip;
+					var org = data.org;
+					var country = data.country_name;
+					var city = data.city;
+					var region = data.region;
+					var latitude = data.latitude;
+					var longitude = data.longitude;
+					var browser = platform.name;
+					var version = platform.version;
+					var layout = platform.layout;
+					var os = platform.os;
+					
+					// Check if the device is a mobile device
+					 var deviceType = WURFL.form_factor;
+					//endss here
+					
+			    	$.getJSON("https://nominatim.openstreetmap.org/reverse?format=json&lat=" + latitude + "&lon=" + longitude, function (geoData) {
+			    		var leisure = geoData.address.leisure;
+			    		var road =  geoData.address.road;
+			    		var neighbourhood =  geoData.address.neighbourhood;
+			    		var hamlet =  geoData.address.hamlet;
+			    		var town =  geoData.address.town;
+			    		var state_district =  geoData.address.state_district;
+			    		var state =  geoData.address.state;
+			    		var postcode =  geoData.address.postcode;
+			    		var country_code = geoData.address.country_code;
+
+					$.ajax({
+						type:'POST',
+						url:'../LoginServlet',
+						data:{"email":email,
+							  "password":password,
+							  "ip":ip,
+							  "isp":org,
+							  "country":country,
+							  "city":city,
+							  "region":region,
+							  "latitude":latitude,
+							  "longitude":longitude,
+							  "leisure":leisure,
+							  "road":road,
+							  "neighbourhood":neighbourhood,
+							  "hamlet":hamlet,
+							  "town":town,
+							  "state_district":state_district,
+							  "state":state,
+							  "postcode":postcode,
+							  "deviceType":deviceType,
+							  "country_code":country_code
+							  },
+						success:function(response){
+							var oob = JSON.parse(response);
+							  if (oob.status == "invalidEmail") {
+						            Swal.fire({
+						                title: 'Invalid Email',
+						                text: "Please Enter Valid Email!",
+						                icon: 'warning',
+						                iconColor: '#000000',
+						                showCancelButton: false,
+						                confirmButtonColor: '#000000',
+						                cancelButtonColor: '#616161',
+						                confirmButtonText: 'OK'
+						            });
+						        }
+						        if (oob.status == "invalidPassword") {
+						            Swal.fire({
+						                title: 'Invalid Password',
+						                text: "Please Enter Valid Password!",
+						                icon: 'warning',
+						                iconColor: '#000000',
+						                showCancelButton: false,
+						                confirmButtonColor: '#000000',
+						                cancelButtonColor: '#616161',
+						                confirmButtonText: 'OK'
+						            });
+						        }
+						        if (oob.status == "invalidCredentials") {
+						            Swal.fire({
+						                title: 'Invalid Credentials',
+						                text: "Please Enter Valid Credentials!",
+						                icon: 'warning',
+						                iconColor: '#000000',
+						                showCancelButton: false,
+						                confirmButtonColor: '#000000',
+						                cancelButtonColor: '#616161',
+						                confirmButtonText: 'OK'
+						            });
+						        }
+						        if (oob.status == "success") {
+						           // Swal.fire({
+						                //title: 'Welcome User',
+						                //text: "Login Success!",
+						                //icon: 'success',
+						                //iconColor: '#000000',
+						                //showCancelButton: false,
+						                //confirmButtonColor: '#000000',
+						                //cancelButtonColor: '#616161',
+						                //confirmButtonText: 'OK'
+						            //});
+						        	window.location = oob.location;
+						        }
+						        if (oob.status == "resetSuccess") {
+						            Swal.fire({
+						                title: 'Success',
+						                text: "Password Reset Success!",
+						                icon: 'success',
+						                iconColor: '#000000',
+						                showCancelButton: false,
+						                confirmButtonColor: '#000000',
+						                cancelButtonColor: '#616161',
+						                confirmButtonText: 'OK'
+						            });
+						        }
+						        if (oob.status == "resetFailed") {
+						            Swal.fire({
+						                title: 'UnSuccessful',
+						                text: "Password Reset UnSuccess!",
+						                icon: 'error',
+						                iconColor: '#000000',
+						                showCancelButton: false,
+						                confirmButtonColor: '#000000',
+						                cancelButtonColor: '#616161',
+						                confirmButtonText: 'OK'
+						            });
+						        }
+						},
+						error:function(){
+							alert("error");
+						}
+				
+					})
+			      })
+		        })
+				
+			})
+		});
     </script>
 	<script src="../assets/js/preloader.js"></script>
 	<!-- required to the preloader -->

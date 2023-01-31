@@ -2173,6 +2173,7 @@ if (authin != null) {
 		<!-- required to the excelsheet ends herer -->
 		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<script>
+		
 		$(document).ready(function() {
 			
 			var upidcard=0;
@@ -2488,6 +2489,7 @@ if (authin != null) {
 	  		        })
 		 		}
 		    })
+		
 		})
 		</script>
 </body>
