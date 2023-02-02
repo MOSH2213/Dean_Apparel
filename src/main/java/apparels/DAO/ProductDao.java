@@ -176,7 +176,7 @@ public class ProductDao {
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				rate = (rs.getDouble("rate"));
-				System.out.println(rate);
+				
 			}
 
 		} catch (Exception e) {
