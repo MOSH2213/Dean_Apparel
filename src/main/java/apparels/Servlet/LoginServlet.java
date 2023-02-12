@@ -142,6 +142,13 @@ public class LoginServlet extends HttpServlet {
 					boolean result = lgtime.insertlogs(logtime);
 					
 					int lids=lgtime.lastLogID(email, formatter_time.format(time));
+					if(lat==null) {
+						lat = "0.0";
+					}else if(longs==null) {
+						longs="0.0";
+					}else if(postcode==null) {
+						postcode = "0";
+					}
 					lgtime.insertlogsDetection(lids, ip, isp,Double.parseDouble(lat), Double.parseDouble(longs),Integer.parseInt(postcode), leisure, road, neighbourhood, hamlet, town, state_district, state, country_code, country, deviceType);
 					
 					
